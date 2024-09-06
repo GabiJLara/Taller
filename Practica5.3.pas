@@ -154,7 +154,40 @@ begin
 	end;
 end;
 
+Function BuscarEnArbol (a:Arbol; C1: integer; C2:integer):integer; //RECORRE EL ARBOL Y BUSCA DENTRO DEL RANGO
+begin
+	If(A = Nil) then
+		BuscarEnArbol:= 0
+	else
+		If(a^.dato.codigo > C1) and (A^.dato.Codigo < C2) then
+			BuscarEnArbol:= 1 + BuscarEnArbol(A^.HI,c1,c2) + BuscarEnArbol(A^.HD,c1,c2)
+		else
+			If (a^.dato.codigo <= C1) then
+				BuscarEnArbol:= BuscarEnArbol(a^.HD,C1,C2)
+			else
+				BuscarEnArbol:= BuscarEnArbol(a^.HI,C1,C2);
+end;
 
+
+Procedure RecorrerVector(Vec:vector; Codigo1:integer; codigo2:integer); //RECORRE EL VECTOR LLAMANDO A RECORRER EL ARBOL E IMPRIMIR
+var
+	i: integer;
+begin
+	For i:= 1 to DimF do
+	begin
+		if (vec[i] <> Nil) then
+			Writeln('La cantidad de codigos comprendidos en la posicion:', i, ' dentro del rango es: ',BuscarEnArbol(Vec[i],Codigo1,Codigo2))
+		else
+			writeln('-----El Vector En La Posicion:', i, ' Se Encuentra Vacio------')
+	end;
+end;
+
+
+Procedure Rango (Vec: vector; var c1:integer; var c2: integer);
+begin
+	Writeln('Ingrese Parte baja del rango: '); Readln(C1);
+	Writeln('Ingrese Parte alta del rango: '); Readln(C2);
+	RecorrerVector(Vec,c1,c2);
 {FALTA Implementar un módulo que reciba la estructura generada en a), dos códigos y
 retorne, para cada rubro, la cantidad de productos con códigos entre los dos valores
 ingresados.}
