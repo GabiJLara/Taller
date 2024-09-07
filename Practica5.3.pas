@@ -188,9 +188,6 @@ begin
 	Writeln('Ingrese Parte baja del rango: '); Readln(C1);
 	Writeln('Ingrese Parte alta del rango: '); Readln(C2);
 	RecorrerVector(Vec,c1,c2);
-{FALTA Implementar un módulo que reciba la estructura generada en a), dos códigos y
-retorne, para cada rubro, la cantidad de productos con códigos entre los dos valores
-ingresados.}
 
 //PROGRAMA PRINCIPAL
 Var
