@@ -86,6 +86,7 @@ Procedure CargarArbol (var A:Arbol); //CARGA EL ARBOL Y LEE PASAJES
 var
 	p:pasajes;
 begin
+	a:=nil;
 	Writeln('-------------COMIENZA CARGA DEL ARBOL-----------');
 	LeerPasaje(P);
 	While (P.MontoPasaje <> 0 ) do	
