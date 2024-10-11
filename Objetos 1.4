@@ -1,0 +1,34 @@
+
+package tema1;
+
+import PaqueteLectura.Lector;
+
+public class EdificioOficinas {
+    public static void main(String[] args) {
+        int [][] matriz = new int [8][4];
+        int i,j,piso,oficina;
+        
+        for (i=0;i<8;i++){          //INICIALIZO TODAS LAS OFICINAS EN 0
+            for (j=0;j<4;j++){
+                matriz[i][j]=0;
+            }
+        }
+        System.out.println("Ingrese Piso Al Que Va (entre 0 y 7): ");
+        piso = Lector.leerInt();
+        while (piso !=9){
+            System.out.println("Ingrese Oficina A La Que va (entre 0 y 3): ");
+            oficina = Lector.leerInt();
+            matriz[piso][oficina]= matriz[piso][oficina] + 1;
+            System.out.println("Ingrese Piso Al Que Va (entre 0 y 7): ");
+            piso = Lector.leerInt();
+        }
+        
+        System.out.println("Matriz Que Indica La Cantidad De Gente En Cada Oficina La Parte Alta De la Matriz Es PB Y la baja es el ultimo piso");
+        for (i=0;i<8;i++){          //IMPRIMO TOTAL DE PERSONAS POR OFICINAS
+            for (j=0;j<4;j++){
+                System.out.print(matriz[i][j]+ " ");
+            }
+            System.out.println();
+        }
+        
+    }
