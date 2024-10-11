@@ -1,0 +1,20 @@
+public class Ej01Tabla2 {
+
+    public static void main(String[] args) {
+        GeneradorAleatorio.iniciar();
+        int DF=11;  
+        int [] tabla2 = new int[DF]; // indices de 0 a 10
+        int i;
+        int numeroRandom;
+        for (i=0;i<DF;i++)              //Aca cargar el vector con las multiplicaciones hechas
+            tabla2[i]=2*i;
+        
+        int O;
+        O = GeneradorAleatorio.generarInt(12);
+        while (O != 11 )
+        {System.out.println("2x" + O + "="+ tabla2[O]);
+        O = GeneradorAleatorio.generarInt(12);
+        }
+    }
+    
+}
