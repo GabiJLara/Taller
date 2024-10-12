@@ -1,0 +1,42 @@
+
+package tema1;
+
+import PaqueteLectura.Lector;
+
+public class Restaurante {
+    public static void main (String [] args) {
+    int [][] entrevista = new int [5][4];
+    int i,j;
+    int atencionCliente = 0;
+    int calidadComida = 0;
+    int precio = 0;
+    int ambiente = 0;
+    
+    for (i=0;i<5;i++)
+    {
+        System.out.println("Cliente Numero: "+ i);
+        j=0;
+        System.out.println("Inserte Puntaje (Entre 1 y 10) por 'Atencion Al Cliente': ");
+        entrevista[i][j] = Lector.leerInt();
+        atencionCliente= atencionCliente + entrevista[i][j];
+        j++;
+        System.out.println("Inserte Puntaje (Entre 1 y 10) por 'Calidad De Comida': ");
+        entrevista[i][j] = Lector.leerInt();
+        calidadComida = calidadComida + entrevista[i][j];
+         j++;
+        System.out.println("Inserte Puntaje (Entre 1 y 10) por 'Precio': ");
+        entrevista[i][j] = Lector.leerInt();
+        precio = precio + entrevista[i][j];
+         j++;
+        System.out.println("Inserte Puntake (Entre 1 y 10) por 'Ambiente': ");
+        entrevista[i][j] = Lector.leerInt();
+        ambiente = ambiente + entrevista[i][j];
+    }
+    System.out.println("Promedios: ");
+    System.out.println("Atencion Cliente: " + (double) atencionCliente/5);
+    System.out.println("Calidad De Comida: " + (double) calidadComida/5);
+    System.out.println("Precio: " + (double) precio/5);
+    System.out.println("Ambiente: " + (double) ambiente/5);
+    
+}
+}
