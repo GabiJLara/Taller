@@ -1,0 +1,69 @@
+package tema2;
+
+import PaqueteLectura.Lector;
+
+
+public class Ejercicio4{
+    
+    public static void main(String[] args) {
+        
+        int [] vector = new int [5];
+        int dia = 0;
+        int turno = 0;
+        Persona [][] casting = new Persona [5][8];
+        boolean terminar = false;
+        int totalPersonas = 0;
+        
+        for (dia=0;dia<5;dia++){
+            vector[dia]=0;
+        }
+        
+        while (totalPersonas <40 && terminar==false){
+            
+            
+            System.out.print("Ingrese nombre: ");
+            String nombre = Lector.leerString();
+            
+            // Condición de fin (si el nombre es "ZZZ")
+            if (nombre.equals("ZZZ")) {
+                terminar = true;
+                break;
+            }
+            
+            System.out.print("Ingrese DNI: ");
+            int DNI = Lector.leerInt();
+            System.out.print("Ingrese edad: ");
+            int edad = Lector.leerInt();
+            System.out.print("Ingrese dia (entre 1 y 5): ");
+            int diaElegido = Lector.leerInt();
+            
+            
+            if (vector[diaElegido-1]==8){
+                System.out.println("------NO QUEDAN TURNOS PARA ESE DIA----------");
+            }
+            else{
+                casting[diaElegido-1][vector[diaElegido-1]]=new Persona(nombre,DNI,edad);
+                System.out.println("Se inscribio para el día " + diaElegido + " turno " + (vector[diaElegido-1]+1));
+                vector[diaElegido-1]= vector[diaElegido-1]+1;
+            }
+            
+            totalPersonas++;
+            turno++;
+            
+            if (turno==8){
+                dia++;
+                turno= 0;
+            }
+            
+        }
+        System.out.println("-------------ENTREVISTAS PROGRAMADAS------------------");
+        for (int i=0;i<5;i++){
+            for(int j=0;j<8;j++){
+                if(casting[i][j]==null)
+                    System.out.println("Dia: "+(i+1)+" Turno "+(j+1)+": "+ "Vacio");
+                else
+                    System.out.println("Dia: "+(i+1)+" Turno "+(j+1)+": "+casting[i][j].getNombre());
+            }
+        }
+    }
+}
