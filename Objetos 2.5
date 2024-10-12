@@ -1,0 +1,58 @@
+
+package tema2;
+
+import PaqueteLectura.Lector;
+
+
+public class Ejercicio5 {
+    public static void main(String[] args){
+        
+        int DF=20;
+        Partido [] vector = new Partido[DF];  //El programa lo inicializa automaticamente en NULL
+        boolean terminar= false;
+        int totalPartidos= 0;
+        int ganoRiver= 0;
+        int golesBoca=0;
+        
+        //CARGA DEL VECTOR DE PARTIDOS
+        while (!terminar && totalPartidos<DF){
+            System.out.print("Ingrese Nombre Del Equipo Visitante: ");
+            String visitante = Lector.leerString();
+            
+            if(visitante.equals("ZZZ")){  //Condicion de corte
+                terminar = true;
+                break;
+            }
+            System.out.print("Ingrese Nombre Del Equipo Local: ");
+            String local = Lector.leerString();
+            System.out.print("Ingrese Goles Del Equipo Local: ");
+            int golesLocal = Lector.leerInt();
+            System.out.print("Ingrese goles Del Equipo Visitante: ");
+            int golesVisitante = Lector.leerInt();
+            
+            vector[totalPartidos]= new Partido(local,visitante,golesLocal,golesVisitante);
+            totalPartidos++;
+        }
+        System.out.println("------------------------------------------------");
+        
+        //IMPRESION DEL VECTOR
+        System.out.println("-----LOCAL(goles) VS VISITANTE(goles)----");
+        for (int i=0;i<totalPartidos;i++){
+            System.out.println(vector[i].getLocal()+"("+ vector[i].getGolesLocal()+")"+" VS "+vector[i].getVisitante()+"("+vector[i].getGolesVisitante()+")");
+        }
+        
+        //AVERIGUAR CUANTOS PARTIDOS GANO RIVER E INFORMAR
+        for (int i=0;i<totalPartidos;i++){
+            if (vector[i].getGanador().equals("River")){
+                ganoRiver++;
+            }
+            if (vector[i].getLocal().equals("Boca")){
+                golesBoca = golesBoca + vector[i].getGolesLocal();
+            }
+        }
+        System.out.println("------------------------------------------------");
+        System.out.println("Cantidad de partidos ganados por River:  "+ ganoRiver);
+        System.out.println("------------------------------------------------");
+        System.out.println("Cantidad de goles de Boca como local:  "+ golesBoca);
+    }
+}
