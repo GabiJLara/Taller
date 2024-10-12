@@ -1,0 +1,55 @@
+package tema2;
+
+import PaqueteLectura.Lector;
+
+
+public class Ejercicio3 {
+    
+    public static void main(String[] args) {
+        
+        int dia = 0;
+        int turno = 0;
+        Persona [][] casting = new Persona [5][8];
+        boolean terminar = false;
+        int totalPersonas = 0;
+        
+        
+        while (totalPersonas <40 && terminar==false){
+            System.out.println("Inscribiendo persona para el día " + (dia + 1) + " turno " + (turno + 1));
+            
+            System.out.print("Ingrese nombre: ");
+            String nombre = Lector.leerString();
+            
+            // Condición de fin (si el nombre es "ZZZ")
+            if (nombre.equals("ZZZ")) {
+                terminar = true;
+                break;
+            }
+            
+            System.out.print("Ingrese DNI: ");
+            int DNI = Lector.leerInt();
+            System.out.print("Ingrese edad: ");
+            int edad = Lector.leerInt();
+            
+            casting[dia][turno]= new Persona(nombre,DNI,edad);
+            
+            totalPersonas++;
+            turno++;
+            
+            if (turno==8){
+                dia++;
+                turno= 0;
+            }
+            
+        }
+        System.out.println("-------------ENTREVISTAS PROGRAMADAS------------------");
+        for (int i=0;i<5;i++){
+            for(int j=0;j<8;j++){
+                if(casting[i][j]==null)
+                    System.out.println("Dia: "+i+" Turno "+j+": "+ "Vacio");
+                else
+                    System.out.println("Dia: "+i+" Turno "+j+": "+casting[i][j].getNombre());
+            }
+        }
+    }
+}
