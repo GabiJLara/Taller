@@ -1,0 +1,49 @@
+package tema2;
+
+import PaqueteLectura.GeneradorAleatorio;
+
+public class Ejercicio2 {
+    public static void main(String[] args) {
+        int DF = 14; // Tamaño máximo del arreglo
+        Persona[] vector = new Persona[DF];
+        GeneradorAleatorio.iniciar(); // Inicializamos el generador de números aleatorios
+        int i = 0;
+        int mayoresDe65 = 0;
+        Persona personaConMenorDNI = null;
+        
+        while (i < DF) {
+            // Generar datos aleatorios
+            String nombre = GeneradorAleatorio.generarString(10); // nombre aleatorio (Letras randoms)
+            int DNI = GeneradorAleatorio.generarInt(99999999) + 1; // DNI de 1 a 99999999
+            int edad = GeneradorAleatorio.generarInt(100); // Edad entre 0 y 99
+            
+            // Si la edad es 0, salimos del ciclo
+            if (edad == 0) {
+                break;
+            }
+            
+            // Crear una nueva persona con los datos aleatorios
+            Persona p = new Persona(nombre, DNI, edad);
+            vector[i] = p;
+            
+            // Contar personas mayores de 65
+            if (p.getEdad() > 65) {
+                mayoresDe65++;
+            }
+            
+            // Determinar la persona con el menor DNI
+            if (personaConMenorDNI == null || p.getDNI() < personaConMenorDNI.getDNI()) {
+                personaConMenorDNI = p;
+            }
+            
+            i++; // Incrementar el índice
+        }
+        
+        // Informe de resultados
+        System.out.println("Cantidad de personas mayores de 65 años: " + mayoresDe65);
+        
+        if (personaConMenorDNI != null) {
+            System.out.println("La persona con el menor DNI es: " + personaConMenorDNI);
+        }
+    }
+}
