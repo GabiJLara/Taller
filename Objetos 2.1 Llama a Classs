@@ -1,0 +1,12 @@
+package tema2;
+
+public class TestPersona {
+
+    public static void main(String[] args) {
+        // Crear una persona leyendo datos desde el teclado
+        Persona p = new Persona();  // Llama al constructor sin parámetros que pide los datos
+        
+        // Mostrar la representación en formato String
+        System.out.println(p.toString());
+    }
+}
