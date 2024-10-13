@@ -1,11 +1,19 @@
 
 package tema3;
 
+import PaqueteLectura.Lector;
 
 public class Ejercicio5 {
 
     public static void main(String[] args) {
-        Circulo C=new Circulo(5,"Rojo","Negro");
+        System.out.print("Ingrese Color De Relleno: ");
+        String colorRelleno=Lector.leerString();
+        System.out.print("Ingrese Color De Linea: ");
+        String colorLinea=Lector.leerString();
+        System.out.print("Ingrese Radio: ");
+        double radio=Lector.leerDouble();
+        
+        Circulo C=new Circulo(radio,colorRelleno,colorLinea);
         System.out.println("Aea del  Circulo: "+C.getArea());
         System.out.println("Perimetro Del Circulo: "+C.getPerimetro());
         
