@@ -1,0 +1,80 @@
+package tema3;
+
+public class Triangulo {
+    private double ladoA;
+    private double ladoB;
+    private double ladoC;
+    private String colorR;
+    private String colorL;
+
+    public double getLadoA() {
+        return ladoA;
+    }
+
+    public void setLadoA(double ladoA) {
+        this.ladoA = ladoA;
+    }
+
+    public double getLadoB() {
+        return ladoB;
+    }
+
+    public void setLadoB(double ladoB) {
+        this.ladoB = ladoB;
+    }
+
+    public double getLadoC() {
+        return ladoC;
+    }
+
+    public void setLadoC(double ladoC) {
+        this.ladoC = ladoC;
+    }
+
+    public String getColorR() {
+        return colorR;
+    }
+
+    public void setColorR(String colorR) {
+        this.colorR = colorR;
+    }
+
+    public String getColorL() {
+        return colorL;
+    }
+
+    public void setColorL(String colorL) {
+        this.colorL = colorL;
+    }
+    
+    public Triangulo (double unLadoA, double unLadoB, double unLadoC, String unColorR, String unColorL){
+        ladoA = unLadoA;
+        ladoB = unLadoB;
+        ladoC = unLadoC;
+        colorR = unColorR;
+        colorL = unColorL;
+    
+}
+    public double getPerimetro (){
+        double P = ladoA + ladoB + ladoC;
+        return P;  
+    }
+    
+    private double getSemiPerimetro (){
+        double SP = (ladoA + ladoB + ladoC)/2;
+        return SP;
+    }
+    
+    public double getArea (){
+        double A = Math.sqrt(this.getSemiPerimetro()*(this.getSemiPerimetro()-ladoA)*(this.getSemiPerimetro()- ladoB)*(this.getSemiPerimetro()-ladoC));
+        return A;
+    }
+    
+    public String toString() {
+        String aux;
+        aux = "LadoA: " + ladoA + " LadoB: " + ladoB + " Lado C: " + ladoC + " ColorR: " + colorR + " ColorL: " + colorL;
+        return (aux);
+    }
+    
+    
+}
