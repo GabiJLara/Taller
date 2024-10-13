@@ -1,0 +1,49 @@
+
+package tema3;
+
+
+public class Habitacion {
+    boolean ocupada;
+    double costo;
+    Cliente ocupadaPor;
+
+    public Habitacion(Double random){  //INICIALIZA LA HABITACION DESOCUPADA Y UN PRECIO RANDOM
+        this.ocupada = false;
+        this.costo = random;
+        this.ocupadaPor = null;
+    }
+
+    public boolean getOcupada() {
+        return ocupada;
+    }
+
+    public void setOcupada(boolean ocupada) {
+        this.ocupada = ocupada;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
+
+    public Cliente getOcupadaPor() {
+        return ocupadaPor;
+    }
+
+    public void setOcupadaPor(Cliente ocupadaPor) {
+        this.ocupadaPor = ocupadaPor;
+        this.ocupada = true;
+    }
+
+    public String toString() {
+        String aux;
+        aux= "Habitacion ocupada: "+ ocupada+ ", costo: "+ costo + ", ocupada Por: "+ ocupadaPor;
+        return(aux);
+    }
+    
+    
+   
+}
