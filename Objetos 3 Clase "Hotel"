@@ -1,0 +1,48 @@
+
+package tema3;
+
+import PaqueteLectura.GeneradorAleatorio;
+        
+public class Hotel {
+    private Habitacion[] habitaciones;
+    
+    public Hotel (int N){
+        this.habitaciones= new Habitacion[N];
+        GeneradorAleatorio.iniciar();
+        
+        for (int i=0;i<N;i++){
+            double random= GeneradorAleatorio.generarDouble(6001)+2000;
+            habitaciones[i]=new Habitacion(random);
+        }
+    }
+    
+        
+    public void aumentarPrecio (double monto){
+        for (Habitacion habitacione : habitaciones) {
+            habitacione.setCosto(habitacione.getCosto() + monto);
+        }
+    }
+    
+    public void ingresarCliente(Cliente cliente, int habitacionNum){
+        if(habitaciones[habitacionNum-1].getOcupada()==false){
+            habitaciones[habitacionNum-1].setOcupadaPor(cliente);
+        }
+        else
+            System.out.println("Habitacion Ocupada");
+        
+    }
+
+    public String toString() {
+       StringBuilder sb = new StringBuilder();
+       for (int i = 0; i < habitaciones.length; i++) {
+           sb.append("Habitación ").append(i + 1).append(": ");
+           sb.append(habitaciones[i].toString()).append("\n");
+       }
+       return sb.toString();
+    }    
+
+    
+    
+    
+}
+    
