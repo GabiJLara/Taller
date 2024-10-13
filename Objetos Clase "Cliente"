@@ -1,0 +1,47 @@
+
+package tema3;
+
+
+public class Cliente {
+    String nombre;
+    int DNI;
+    int edad;
+    
+    public Cliente (String unNombre, int unDNI, int unaEdad){
+        this.nombre = unNombre;
+        this.DNI = unDNI;
+        this.edad = unaEdad;      
+    }
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(int DNI) {
+        this.DNI = DNI;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public String toString() {
+        String aux;
+        aux = "Nombre Cliente: " + nombre + ", DNI: " + DNI +", edad: " + edad;
+        return(aux);
+    }
+    
+    
+}
