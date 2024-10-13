@@ -1,0 +1,38 @@
+
+package tema3;
+
+
+public class Ejercicio4 {
+
+
+    public static void main(String[] args) {
+        //Crea el hotel con 10 habitaciones
+        Hotel h = new Hotel(10);
+        
+        //Crea 6 clientes
+        Cliente c1= new Cliente("Pedro",1,22);
+        Cliente c2= new Cliente("Pedro",2,22);
+        Cliente c3= new Cliente("Pedro",3,22);
+        Cliente c4= new Cliente("Pedro",4,22);
+        Cliente c5= new Cliente("Pedro",5,22);
+        Cliente c6= new Cliente("Pedro",6,22);
+        
+        //Ingresa los 6 clientes en habitaciones
+        h.ingresarCliente(c1,1);
+        h.ingresarCliente(c2,2);
+        h.ingresarCliente(c3,3);
+        h.ingresarCliente(c4,4);
+        h.ingresarCliente(c5,5);
+        h.ingresarCliente(c6,5);
+        
+        //Imprime Hotel
+        System.out.println("--------Estado Inicial Del Hotel---------");
+        System.out.print(h);
+        
+        h.aumentarPrecio(500);
+        
+        System.out.println("--------Estado Del Hotel Post Aumento---------");
+        System.out.print(h);
+    }
+    
+}
