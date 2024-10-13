@@ -1,0 +1,29 @@
+
+package tema3;
+
+
+public class Ejercicio3 {
+
+    
+    public static void main(String[] args) {
+        Estante Estante = new Estante(20); //Instancia el estante
+        Autor autor1 = new Autor("Nico Del Caño","Comunista","Argentino"); //Creo un autor
+        Autor autor2 = new Autor ("Pedro Sanchez","Mujer","Peronia");// Creo segundo autor
+        Libro libro1= new Libro("Manifiesto Comunista","La izquierda",autor1,"12315"); //Especifico un libro
+        
+        Estante.agregarLibro(libro1); //Agrego un libro
+        //ACA AGREGO LIBROS CREANDOLOS MIENTRAS LOS AGREGO
+        Estante.agregarLibro(new Libro("Mujercitas","Nana",autor2,"dsd"));
+        Estante.agregarLibro(new Libro("Nagdsa","Nagdsa",autor1,"Nagdsa"));
+        Estante.agregarLibro(new Libro("Renpa","Renpa",autor1,"Renpa"));
+        
+        Libro libroBuscado = Estante.buscarLibro("Mujercitas");
+        if (libroBuscado !=null){
+            System.out.println("Autor del Libro Mujercitas: " + libroBuscado.getPrimerAutor());
+        }
+        else
+            System.out.println("El libro 'Mujercitas' no se encontro en el estante" );
+        
+    }
+    
+}
