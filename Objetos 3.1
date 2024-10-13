@@ -1,0 +1,30 @@
+package tema3;
+
+import PaqueteLectura.Lector;
+        
+public class Ejercicio1 {
+
+    public static void main(String[] args) {
+        
+        System.out.print("Inserte Lado A: ");
+        double ladoA = Lector.leerDouble();
+        
+        System.out.print("Inserte Lado B: ");
+        double ladoB = Lector.leerDouble();
+        
+        System.out.print("Inserte Lado C: ");
+        double ladoC = Lector.leerDouble();
+        
+        System.out.print("Inserte Color de Relleno: ");
+        String colorR = Lector.leerString();
+        
+        System.out.print("Inserte Color de Linea: ");
+        String colorL = Lector.leerString();
+        
+        Triangulo T = new Triangulo (ladoA,ladoB,ladoC,colorR,colorL);
+        
+        System.out.println("El Perimetro del Triangulo es: " + T.getPerimetro());
+        System.out.println("El Area del Triangulo es: " + T.getArea());
+    }
+    
+}
