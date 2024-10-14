@@ -1,0 +1,55 @@
+
+package tema4;
+
+
+public class Entrenadores extends Empleado{
+    private int campeonatosGanados;
+
+    public int getCampeonatosGanados() {
+        return campeonatosGanados;
+    }
+
+    public void setCampeonatosGanados(int campeonatosGanados) {
+        this.campeonatosGanados = campeonatosGanados;
+    }
+    
+    public Entrenadores (int unCampeonatosGanados, String unNombre, double unSueldo, int unaAntiguedad){
+        super(unNombre,unSueldo,unaAntiguedad);
+        this.setCampeonatosGanados(unCampeonatosGanados);
+    }
+
+    public double calcularEfectividad() {
+        double prom;
+        prom= (double) this.getCampeonatosGanados()/this.getAntiguedad();
+        return(prom);
+    }
+
+    public double calcularSueldoACobrar() {
+        double sueldoTotal;
+        
+        if(this.getCampeonatosGanados()>=1 && this.getCampeonatosGanados()<=4){
+            sueldoTotal= this.sueldoACobrar()+ 5000;
+            return (sueldoTotal);
+        }
+        if(this.getCampeonatosGanados()>=5 && this.getCampeonatosGanados()<=10){
+            sueldoTotal= this.sueldoACobrar()+ 30000;
+            return (sueldoTotal);
+        }
+        if (this.getCampeonatosGanados()>10){
+            sueldoTotal= this.sueldoACobrar()+50000;
+            return (sueldoTotal);
+        }
+        else{
+            sueldoTotal= this.sueldoACobrar();
+            return (sueldoTotal);
+        }
+    }
+    
+    
+    
+    public String toString(){
+        String aux;
+        aux= super.toString()+ " CAMPEONATOS GANADOS: "+ this.getCampeonatosGanados();
+        return(aux);
+    }
+}
