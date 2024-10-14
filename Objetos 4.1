@@ -1,0 +1,24 @@
+
+package tema4;
+
+import PaqueteLectura.GeneradorAleatorio;
+
+public class Ejercicio1 {
+
+
+    public static void main(String[] args) {
+        GeneradorAleatorio.iniciar();
+        Circulo cir= new Circulo(8,GeneradorAleatorio.generarString(8),GeneradorAleatorio.generarString(8));
+        Triangulo tri= new Triangulo(6,7,8,GeneradorAleatorio.generarString(8),GeneradorAleatorio.generarString(8));
+        System.out.println("-------------------IMPRESION FIGURAS---------------------- ");
+        System.out.println("Circulo: "+ cir.toString());
+        System.out.println("Triangulo: "+ tri.toString());
+        tri.despintar();
+        cir.despintar();
+        System.out.println("-------------------IMPRESION FIGURAS MODIFICADAS---------------------- ");
+        System.out.println("Circulo: "+ cir.toString());
+        System.out.println("Triangulo: "+ tri.toString());
+    }
+    
+    
+}
