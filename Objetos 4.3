@@ -1,0 +1,17 @@
+
+package tema4;
+
+import PaqueteLectura.GeneradorAleatorio;
+
+public class Ejercicio3 {
+
+
+    public static void main(String[] args) {
+        Personas p1= new Personas(GeneradorAleatorio.generarString(10),GeneradorAleatorio.generarInt(99999999),GeneradorAleatorio.generarInt(100));
+        Trabajadores t1= new Trabajadores(GeneradorAleatorio.generarString(10),GeneradorAleatorio.generarInt(99999999),GeneradorAleatorio.generarInt(100),"Jardinero");
+        
+        System.out.println("Personas      "+ p1.toString());
+        System.out.println("Trabajadores        "+ t1.toString());
+    }
+    
+}
