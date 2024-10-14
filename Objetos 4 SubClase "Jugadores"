@@ -1,0 +1,54 @@
+
+package tema4;
+
+ class Jugadores extends Empleado {
+    private int partidosJugados;
+    private int golesAnotados;
+
+    public int getPartidosJugados() {
+        return partidosJugados;
+    }
+
+    public void setPartidosJugados(int partidosJugados) {
+        this.partidosJugados = partidosJugados;
+    }
+
+    public int getGolesAnotados() {
+        return golesAnotados;
+    }
+
+    public void setGolesAnotados(int golesAnotados) {
+        this.golesAnotados = golesAnotados;
+    }
+    
+    
+    public Jugadores (int unPartidosJugados, int unGolesAnotados, String unNombre, double unSueldo, int unaAntiguedad){
+        super(unNombre,unSueldo,unaAntiguedad);
+        this.setGolesAnotados(unGolesAnotados);
+        this.setPartidosJugados(unPartidosJugados); 
+    }
+
+    public double calcularEfectividad() {
+        double prom;
+        prom = (double) this.getGolesAnotados()/ this.getPartidosJugados();
+        return(prom);
+    }
+
+    public double calcularSueldoACobrar() {
+        double sueldoTotal;
+        if (this.calcularEfectividad()>0.5){
+            sueldoTotal=this.sueldoACobrar()+ this.getSueldo();
+        }
+        else{
+            sueldoTotal= this.sueldoACobrar();
+        }
+        return (sueldoTotal);
+        
+    }
+    
+    public String toString(){
+        String aux;
+        aux= super.toString()+ " GOLES ANOTADOS: "+ this.getGolesAnotados()+ " PARTIDOS JUGADOS: " + this.getPartidosJugados();
+        return(aux);
+    }
+}
