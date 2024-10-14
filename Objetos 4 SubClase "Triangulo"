@@ -1,0 +1,66 @@
+
+package tema4;
+
+
+public class Triangulo extends Figura{
+    
+    private double ladoA;
+    private double ladoB;
+    private double ladoC;
+
+    public Triangulo (double unLadoA, double unLadoB, double unLadoC, String unColorR,String unColorL){
+        super(unColorR,unColorL);
+        this.setLadoA(unLadoA);
+        this.setLadoB(unLadoB);
+        this.setLadoC(unLadoC);
+        
+    }
+    public double getLadoA() {
+        return ladoA;
+    }
+
+    public void setLadoA(double ladoA) {
+        this.ladoA = ladoA;
+    }
+
+    public double getLadoB() {
+        return ladoB;
+    }
+
+    public void setLadoB(double ladoB) {
+        this.ladoB = ladoB;
+    }
+
+    public double getLadoC() {
+        return ladoC;
+    }
+
+    public void setLadoC(double ladoC) {
+        this.ladoC = ladoC;
+    }
+    
+    private double getSemiPerimetro (){
+    double SP = (this.getLadoA()+ this.getLadoB()+ this.getLadoC())/2;
+    return SP;
+    }
+        
+    public double calcularArea() {
+        double area;
+        area= Math.sqrt(this.getSemiPerimetro()*(this.getSemiPerimetro()-this.getLadoA())*(this.getSemiPerimetro()-this.getLadoB())*(this.getSemiPerimetro()-this.getLadoC()));
+        return (area);
+    }
+
+    public double calcularPerimetro() {
+        double perimetro;
+        perimetro = this.getLadoA()*this.getLadoB()+ this.getLadoC();
+        return (perimetro);
+    }
+    
+    public String toString() {
+        String aux;
+        aux= super.toString()+ " Lado A: "+this.getLadoA()+", Lado B: "+ this.getLadoB()+", Lado C: "+ this.getLadoC();
+        return (aux);
+    }
+    
+}
+
