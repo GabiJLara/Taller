@@ -1,0 +1,26 @@
+
+package tema4;
+
+
+public class Trabajadores extends Personas {
+    private String tareaRealizada;
+
+    public String getTareaRealizada() {
+        return tareaRealizada;
+    }
+
+    public void setTareaRealizada(String tareaRealizada) {
+        this.tareaRealizada = tareaRealizada;
+    }
+    
+    public Trabajadores (String unNombre, int unDNI, int unaEdad, String unaTareaRealizada){
+        super(unNombre,unDNI,unaEdad);
+        this.setTareaRealizada(unaTareaRealizada);
+        
+    }
+    public String toString (){
+        String aux;
+        aux= super.toString()+ " SOY: "+this.getTareaRealizada()+".";
+        return(aux);
+    }
+}
