@@ -1,0 +1,55 @@
+
+package tema4;
+
+
+public abstract class Empleado {
+    private String nombre;
+    private double sueldo;
+    private int antiguedad;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(double sueldo) {
+        this.sueldo = sueldo;
+    }
+
+    public int getAntiguedad() {
+        return antiguedad;
+    }
+
+    public void setAntiguedad(int antiguedad) {
+        this.antiguedad = antiguedad;
+    }
+   
+    public Empleado (String unNombre, double unSueldo, int unaAntiguedad){
+        this.setNombre(unNombre);
+        this.setSueldo(unSueldo);
+        this.setAntiguedad(unaAntiguedad);
+    }
+    
+    public String toString(){
+        String aux;
+        aux= " NOMBRE: " + this.getNombre()+ " SUELDO BASICO: "+ this.getSueldo() + " ANTIGUEDAD: "+ this.getAntiguedad()+ " SUELDO A COBRAR: "+ this.calcularSueldoACobrar() + " EFECTIVIDAD: "+ this.calcularEfectividad();
+        return (aux);
+    }
+    
+    public abstract double calcularEfectividad();
+    public abstract double calcularSueldoACobrar();
+    
+    public double sueldoACobrar(){
+        double sueldoACobrar;
+        sueldoACobrar= this.getSueldo()*1.1*this.getAntiguedad();
+        return(sueldoACobrar);
+}
+    
+}
