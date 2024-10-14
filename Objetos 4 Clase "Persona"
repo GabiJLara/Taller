@@ -1,0 +1,46 @@
+
+package tema4;
+
+public class Personas {
+    private String nombre;
+    private int DNI;
+    private int edad;
+    
+    public Personas (String unNombre, int unDNI, int unaEdad){
+        this.setNombre(unNombre);
+        this.setDNI(unDNI);
+        this.setEdad(unaEdad);
+    }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(int DNI) {
+        this.DNI = DNI;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+    
+    public String toString() {
+        String aux;
+        aux= "' Mi Nombre Es: "+ this.getNombre() + ", mi DNI es: "+ this.getDNI() + ", TENGO: "+ this.getEdad()+" AÑOS.'";
+        return (aux);
+    }
+    
+    
+   
+}
