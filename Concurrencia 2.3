@@ -1,0 +1,107 @@
+programa practica2ejercicio3
+procesos
+  proceso recorrerCalleA (ES papel: numero)
+  comenzar
+    juntarPapeles(papel)
+    repetir 9
+      mover
+      juntarPapeles(papel)
+  fin
+  proceso recorrerCalleB (ES flor: numero)
+  comenzar
+    juntarFlores(flor)
+    repetir 9
+      mover
+      juntarFlores(flor)
+  fin
+  proceso juntarFlores(ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso juntarPapeles(ES papel: numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papel:= papel + 1
+  fin
+areas
+  area1: AreaP (1,1,100,4)
+  area2: AreaP (1,5,100,9)
+robots
+  robot robotB1
+  variables
+    flor,esquinas,cant:numero
+  comenzar
+    derecha
+    flor:= 0
+    cant:= 40
+    repetir 2
+      recorrerCalleB(flor)
+      esquinas:= 10
+      EnviarMensaje(esquinas,B2)
+      EnviarMensaje(flor,B2)
+  fin
+  robot robotB2
+  variables
+    flor,esquinas: numero
+  comenzar
+    derecha
+    repetir 2
+      RecibirMensaje(esquinas,B1)
+      RecibirMensaje(flor,B1)
+      recorrerCalleB(flor)
+      esquinas:= esquinas + 10
+      si (PosAv <100)
+        Pos(PosAv+11,PosCa)
+      sino
+        Pos(1,PosCa+1)
+      si (esquinas = 20)
+        Informar(flor)
+  fin
+  robot robotA1
+  variables
+    papel,esquinas,cant :numero
+  comenzar
+    derecha
+    papel:= 0
+    cant:= 40
+    repetir 2
+      recorrerCalleA(papel)
+      esquinas:= 10
+      EnviarMensaje(esquinas,A2)
+      EnviarMensaje(papel,A2)
+  fin
+  robot robotA2
+  variables
+    papel,esquinas: numero
+  comenzar
+    derecha
+    repetir 2
+      RecibirMensaje(esquinas,A1)
+      RecibirMensaje(papel, A1)
+      recorrerCalleA(papel)
+      esquinas:= esquinas + 10
+      si (PosAv <100)
+        Pos(PosAv+11,PosCa)
+      sino
+        Pos(1,PosCa+1)
+      si (esquinas = 20)
+        Informar(flor)
+  fin
+variables
+  B1: robotB1
+  B2: robotB2
+  A1: robotA1
+  A2: robotA2
+comenzar
+  AsignarArea(A1, area1)
+  AsignarArea(A2, area1)
+  AsignarArea(B1, area2)
+  AsignarArea(B2,area2)
+  Iniciar(A1, 1,1)
+  Iniciar(A2, 11,1)
+  Iniciar(B1, 1,5)
+  Iniciar(B2, 11,5)
+fin
