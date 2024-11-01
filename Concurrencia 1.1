@@ -1,0 +1,54 @@
+programa Practica1Ejercicio1
+procesos
+  proceso recorrerAvenida(ES flores: numero ES vacias: numero)
+  comenzar
+    si HayFlorEnLaEsquina
+      juntarFlores(flores)
+    sino 
+      vacias:= vacias + 1
+    repetir 99
+      mover
+      si HayFlorEnLaEsquina
+        juntarFlores(flores)
+      sino
+        vacias:= vacias + 1
+    depositarFlores(flores)
+  fin
+  proceso depositarFlores (E flor: numero)
+  comenzar
+    repetir flor
+      depositarFlor
+  fin
+  proceso juntarFlores (ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+areas
+  ciudad: AreaC (1,1,100,100)
+robots
+  robot robot1
+  variables
+    flores : numero
+    esquinasVacias: numero    
+  comenzar
+    flores:= 0
+    esquinasVacias:= 0
+    recorrerAvenida(flores,esquinasVacias)
+    Informar(flores)
+    Informar(esquinasVacias)
+  fin
+variables
+  R_info: robot1
+  r1: robot1
+  r2: robot1
+
+comenzar
+  AsignarArea(R_info, ciudad)
+  AsignarArea (r1,ciudad)
+  AsignarArea (r2,ciudad)
+  Iniciar(R_info, 1,1)
+  Iniciar(r1,3,1)
+  Iniciar(r2,5,1)
+fin
