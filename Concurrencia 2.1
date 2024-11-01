@@ -1,0 +1,259 @@
+programa practica2ejercicio1.A
+procesos
+  proceso recorrerAvenidaFlores (ES flor: numero)
+  comenzar
+    juntarFlores(flor)
+    repetir 9
+      mover
+      juntarFlores(flor)
+  fin
+  proceso juntarFlores(ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+areas
+  area1: AreaP (1,1,1,10)
+  area2: AreaP (2,11,2,20)
+robots
+  robot robot1
+  variables
+    flor,flor2:numero
+  comenzar
+    flor:= 0
+    recorrerAvenidaFlores(flor)
+    EnviarMensaje(flor,R2)
+    RecibirMensaje(flor2,R2)
+    si flor>flor2
+      flor:=flor - flor2
+      Informar(flor)
+  fin
+  robot robot2
+  variables
+    flor,flor2:numero
+  comenzar
+    flor:= 0
+    recorrerAvenidaFlores(flor)
+    EnviarMensaje(flor,R1)
+    RecibirMensaje(flor2,R1)
+    si flor>flor2
+      flor:=flor - flor2
+      Informar(flor)
+  fin
+variables
+  R1: robot1
+  R2: robot2
+comenzar
+  AsignarArea(R1, area1)
+  AsignarArea(R2, area2)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 2,11)
+fin
+
+--------------------------------------------------------------------------------------------------------------
+
+programa practica2ejercicio1.B
+procesos
+  proceso recorrerAvenidaFlores (ES flor: numero)
+  comenzar
+    juntarFlores(flor)
+    repetir 9
+      mover
+      juntarFlores(flor)
+  fin
+  proceso juntarFlores(ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+areas
+  area1: AreaP (1,1,1,10)
+  area2: AreaP (2,11,2,20)
+  areaJefe: AreaP (2,1,2,1)
+robots
+  robot robot1
+  variables
+    flor:numero
+  comenzar
+    flor:= 0
+    recorrerAvenidaFlores(flor)
+    EnviarMensaje(1,RJefe)
+    EnviarMensaje(flor,RJefe)
+  fin
+  robot robot2
+  variables
+    flor:numero
+  comenzar
+    flor:= 0
+    recorrerAvenidaFlores(flor)
+    EnviarMensaje(2,RJefe)
+    EnviarMensaje(flor,RJefe)
+  fin
+  robot robotJefe
+  variables
+    fMax,fMin,dif,quien,flor: numero
+  comenzar
+    fMax:= -1
+    fMin:= 999
+    repetir 2
+      RecibirMensaje(quien,*)
+      si (quien = 1)
+        RecibirMensaje(flor, R1)
+      sino 
+        RecibirMensaje(flor, R2)
+      si (flor>fMax)
+        fMax:= flor
+      si (flor <fMin)
+        fMin:= flor
+    dif:=fMax - fMin
+    Informar(dif)
+  fin
+variables
+  R1: robot1
+  R2: robot2
+  RJefe: robotJefe
+comenzar
+  AsignarArea(R1, area1)
+  AsignarArea(R2, area2)
+  AsignarArea(RJefe,areaJefe)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 2,11)
+  Iniciar(RJefe, 2,1)
+fin
+
+--------------------------------------------------------------------------------------------------
+
+programa practica2ejercicio1.D
+procesos
+  proceso recorrerAvenidaFlores (ES flor: numero)
+  comenzar
+    juntarFlores(flor)
+    repetir 9
+      mover
+      juntarFlores(flor)
+  fin
+  proceso juntarFlores(ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+areas
+  area1: AreaP (1,1,1,10)
+  area2: AreaP (2,11,2,20)
+  area3: AreaP (3,21,3,30)
+  area4: AreaP (4,31,4,40)
+  area5: AreaP (5,41,5,50)
+  area6: AreaP (6,51,6,60)
+  areaJefe: AreaP (2,1,2,1)
+robots
+  robot robot1
+  variables
+    flor:numero
+  comenzar
+    flor:= 0
+    recorrerAvenidaFlores(flor)
+    EnviarMensaje(1,RJefe)
+    EnviarMensaje(flor,RJefe)
+  fin
+  robot robot2
+  variables
+    flor:numero
+  comenzar
+    flor:= 0
+    recorrerAvenidaFlores(flor)
+    EnviarMensaje(2,RJefe)
+    EnviarMensaje(flor,RJefe)
+  fin
+  robot robot3
+  variables
+    flor:numero
+  comenzar
+    flor:= 0
+    recorrerAvenidaFlores(flor)
+    EnviarMensaje(3,RJefe)
+    EnviarMensaje(flor,RJefe)
+  fin
+  robot robot4
+  variables
+    flor:numero
+  comenzar
+    flor:= 0
+    recorrerAvenidaFlores(flor)
+    EnviarMensaje(4,RJefe)
+    EnviarMensaje(flor,RJefe)
+  fin
+  robot robot5
+  variables
+    flor:numero
+  comenzar
+    flor:= 0
+    recorrerAvenidaFlores(flor)
+    EnviarMensaje(5,RJefe)
+    EnviarMensaje(flor,RJefe)
+  fin
+  robot robot6
+  variables
+    flor:numero
+  comenzar
+    flor:= 0
+    recorrerAvenidaFlores(flor)
+    EnviarMensaje(6,RJefe)
+    EnviarMensaje(flor,RJefe)
+  fin
+  robot robotJefe
+  variables
+    fMax,fMin,dif,quien,flor: numero
+    rMax,rMin: numero
+  comenzar
+    fMax:= -1
+    fMin:= 999
+    repetir 6
+      RecibirMensaje(quien,*)
+      si (quien = 1)
+        RecibirMensaje(flor, R1)
+      si (quien = 2)
+        RecibirMensaje(flor, R2)
+      si (quien = 3)
+        RecibirMensaje(flor, R3)
+      si (quien = 4)
+        RecibirMensaje(flor, R4)
+      si (quien = 5)
+        RecibirMensaje(flor, R5)
+      si (quien = 6)
+        RecibirMensaje(flor, R6)
+      si (flor>fMax)
+        fMax:= flor
+        rMax:= quien
+      si (flor <fMin)
+        fMin:= flor
+        rMin:= quien
+    Informar(fMax)
+    Informar(rMax)
+  fin
+variables
+  R1: robot1
+  R2: robot2
+  R3: robot3
+  R4: robot4
+  R5: robot5
+  R6: robot6
+  RJefe: robotJefe
+comenzar
+  AsignarArea(R1, area1)
+  AsignarArea(R2, area2)
+  AsignarArea(R3, area3)
+  AsignarArea(R4, area4)
+  AsignarArea(R5, area5)
+  AsignarArea(R6, area6)
+  AsignarArea(RJefe,areaJefe)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 2,11)
+  Iniciar(R3, 3,21)
+  Iniciar(R4, 4,31)
+  Iniciar(R5, 5,41)
+  Iniciar(R6, 6,51)
+  Iniciar(RJefe, 2,1)
+fin
