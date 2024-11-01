@@ -1,0 +1,72 @@
+programa Practica1Ejercicio2
+procesos
+  proceso avanzar(ES papeles: numero)
+  comenzar
+    repetir 19
+      juntarPapeles(papeles)
+      mover
+  fin
+  proceso juntarPapeles (ES papel: numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papel:= papel + 1
+  fin
+  proceso girar (E cant: numero)
+  comenzar
+    repetir cant
+      derecha
+  fin
+areas
+  ciudad: AreaC (10,10,30,30)
+robots
+  robot robot0
+  variables
+    papeles : numero  
+  comenzar
+    papeles:= 0
+    avanzar(papeles)
+    Informar(papeles)
+  fin
+  robot robot1
+  variables
+    papeles : numero  
+  comenzar
+    girar(1)
+    papeles:= 0
+    avanzar(papeles)
+    Informar(papeles)
+  fin
+  robot robot2
+  variables
+    papeles : numero  
+  comenzar
+    girar(2)
+    papeles:= 0
+    avanzar(papeles)
+    Informar(papeles)
+  fin
+  robot robot3
+  variables
+    papeles : numero  
+  comenzar
+    girar(3)
+    papeles:= 0
+    avanzar(papeles)
+    Informar(papeles)
+  fin
+variables
+  r0: robot0
+  r1: robot1
+  r2: robot2
+  r3: robot3
+comenzar
+  AsignarArea(r0, ciudad)
+  AsignarArea (r1,ciudad)
+  AsignarArea (r2,ciudad)
+  AsignarArea(r3,ciudad)
+  Iniciar(r0,10,10)
+  Iniciar(r1,10,30)
+  Iniciar(r2,30,30)
+  Iniciar(r3,30,10)
+fin
