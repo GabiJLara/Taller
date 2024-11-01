@@ -1,0 +1,103 @@
+programa practica2ejercicio2
+procesos
+  proceso recorrerAvenida (ES flor: numero ES papel: numero)
+  variables
+    aleatorio: numero
+  comenzar
+    Random(aleatorio,1,5)
+    juntarFlores(flor)
+    juntarPapeles(papel)
+    repetir aleatorio
+      mover
+      juntarFlores(flor)
+      juntarPapeles(papel)
+  fin
+  proceso escalera(ES cantEscalones: numero E escalones: numero)
+  variables
+    flor,papel: numero
+  comenzar
+    papel:= 0
+    flor:= 0
+    repetir escalones
+      recorrerAvenida (flor,papel)
+      derecha
+      mover
+      girarIzquierda(3)
+      si (flor > papel)
+        cantEscalones:= cantEscalones + 1
+  fin
+  proceso juntarFlores(ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso juntarPapeles(ES papel: numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papel:= papel + 1
+  fin
+  proceso girarIzquierda(E n: numero)
+  comenzar
+    repetir n
+      derecha
+  fin
+areas
+  area1: AreaP (2,1,6,21)
+  area2: AreaP (7,1,11,21)
+  area3: AreaP (12,1,16,21)
+  areaJefe: AreaP (1,1,1,1)
+robots
+  robot robot1
+  variables
+    cantEscalones:numero
+  comenzar
+    cantEscalones:= 0
+    escalera(cantEscalones, 4)
+    EnviarMensaje(1,RJefe)
+    EnviarMensaje(cantEscalones,RJefe)
+  fin
+  robot robot2
+  variables
+    cantEscalones:numero
+  comenzar
+    cantEscalones:= 0
+    escalera(cantEscalones,4)
+    EnviarMensaje(2,RJefe)
+    EnviarMensaje(cantEscalones,RJefe)
+  fin
+  robot robot3
+  variables
+    cantEscalones:numero
+  comenzar
+    cantEscalones:= 0
+    escalera(cantEscalones,4)
+    EnviarMensaje(3,RJefe)
+    EnviarMensaje(cantEscalones,RJefe)
+  fin
+  robot robotJefe
+  variables
+    suma,cant: numero
+  comenzar
+    suma:= 0
+    repetir 3
+      RecibirMensaje(cant,*)
+      suma:= suma + cant
+    Informar(suma)
+  fin
+variables
+  R1: robot1
+  R2: robot2
+  R3: robot3
+  RJefe: robotJefe
+comenzar
+  AsignarArea(R1, area1)
+  AsignarArea(R2, area2)
+  AsignarArea(R3, area3)
+  AsignarArea(RJefe,areaJefe)
+  Iniciar(R1, 2,1)
+  Iniciar(R2, 7,1)
+  Iniciar(R3, 12,1)
+  Iniciar(RJefe, 1,1)
+fin
