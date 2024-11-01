@@ -1,0 +1,93 @@
+programa Practica1Ejercicio4
+procesos
+  proceso recorrerAvenidaPapel(E numAv: numero ES papel: numero)
+  comenzar
+    Pos(numAv, 1)
+    juntarPapeles(papel)
+    repetir 99
+      mover
+      juntarPapeles(papel)
+  fin
+  proceso recorrerAvenidaFlor (E numAv: numero ES flor: numero)
+  comenzar
+    Pos(numAv,1)
+    juntarFlores(flor)
+    repetir 99
+      mover
+      juntarFlores(flor)
+  fin
+  proceso juntarFlores(ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso juntarPapeles(ES papel: numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papel:= papel + 1
+  fin
+  proceso recorrerCuadrantePar (E numCuadrante: numero ES papel: numero)
+  variables 
+    aux: numero
+  comenzar
+    si numCuadrante= 2
+      aux:= 26
+    sino
+      aux:= 76
+    repetir 25
+      recorrerAvenidaPapel(aux,papel)
+      aux:= aux + 1
+  fin
+  proceso recorrerCuadranteImpar (E numCuadrante: numero ES flor:numero)
+  variables
+    aux: numero
+  comenzar
+    si numCuadrante = 1
+      aux:= 1
+    sino
+      aux:= 51
+    repetir 25
+      recorrerAvenidaFlor(aux,flor)
+      aux:= aux+ 1
+  fin
+areas
+  area1: AreaP (1,1,25,100)
+  area2: AreaP (26,1,50,100)
+  area3: AreaP (51,1,75,100)
+  area4: AreaP (76,1,100,100)
+robots
+  robot robot1
+  variables
+    flor:numero
+    aux:numero
+  comenzar
+    flor:= 0
+    aux:= 1
+    repetir 2
+      recorrerCuadranteImpar(aux,flor)
+      aux:= aux+ 2
+  fin
+  robot robot2
+  variables
+    papel: numero
+    aux: numero
+  comenzar
+    papel:= 0
+    aux:= 2
+    repetir 2
+      recorrerCuadrantePar(aux,papel)
+      aux:= aux + 2
+  fin
+variables
+  R1: robot1
+  R2: robot2
+comenzar
+  AsignarArea(R1, area1)
+  AsignarArea(R1, area3)
+  AsignarArea(R2, area2)
+  AsignarArea(R2, area4)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 26,1)
+fin
