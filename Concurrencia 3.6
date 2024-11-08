@@ -1,5 +1,24 @@
 programa ejemplo
 procesos
+    proceso escalonFlor()
+  variables
+    avI,caI:numero
+  comenzar
+    caI:= PosCa
+    avI:= PosAv
+    repetir cuadras
+      caI:= caI + 1
+      BloquearEsquina(PosAv,caI)
+      mover
+      si caI > 3
+        LiberarEsquina(PosAv,caI-1)
+    derecha
+    repetir cuadras
+      avI:= avI + 1
+      BloquearEsquina(avI,PosCa)  
+      mover
+      LiberarEsquina(avI-1,PosCa)
+  fin
   proceso recorrerCallePapel(E papel:numero)
   comenzar
     mientras HayPapelEnLaBolsa & PosAv < 100
