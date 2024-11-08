@@ -147,7 +147,7 @@ procesos
   fin
   proceso recorrerCallePyF
   comenzar
-    mientras ((HayFlorEnLaBolsa) & (PosAv < 100))
+    mientras ((HayFlorEnLaBolsa) & (HayPapelEnLaBolsa) & (PosAv < 100))
       depositarFlor
       depositarPapel
       mover
@@ -220,19 +220,36 @@ robots
   fin
   robot robotJefe
   variables
-    quien,a:numero
+    primero, segundo, tercero,cant,a:numero
   comenzar
     a:= 20
-    repetir 3
-      RecibirMensaje(quien,*)
-      si quien = 1
-        EnviarMensaje(a,R1)
+    RecibirMensaje(primero,*)
+    RecibirMensaje(segundo,*)
+    RecibirMensaje(tercero,*)
+    si primero = 1
+      EnviarMensaje(a,R1)
+    sino
+      si primero= 2
+        EnviarMensaje(a,R2)
       sino
-        si quien= 2
-          EnviarMensaje(a,R2)
-        sino
-          EnviarMensaje(a,R3)
-      a:= a + 1 
+        EnviarMensaje(a,R3)
+    a:= a + 1 
+    si segundo = 1
+      EnviarMensaje(a,R1)
+    sino
+      si segundo= 2
+        EnviarMensaje(a,R2)
+      sino
+        EnviarMensaje(a,R3)
+    a:= a + 1 
+    si tercero = 1
+      EnviarMensaje(a,R1)
+    sino
+      si tercero= 2
+        EnviarMensaje(a,R2)
+      sino
+        EnviarMensaje(a,R3)
+    a:= a + 1 
   fin
 variables
   RJ: robotJefe
