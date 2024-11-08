@@ -10,7 +10,7 @@ procesos
       caI:= caI + 1
       BloquearEsquina(PosAv,caI)
       mover
-      tomarFlor
+      juntarFlor
       si caI > 3
         LiberarEsquina(PosAv,caI-1)
     derecha
@@ -18,12 +18,13 @@ procesos
       avI:= avI + 1
       BloquearEsquina(avI,PosCa)  
       mover
-      tomarFlor
+      juntarFlor
       LiberarEsquina(avI-1,PosCa)
+    derecha
   fin
   proceso escalonBajaFlor(E cuadras: numero)
   variables
-    ds: numero
+    avI,caI: numero
   comenzar
     caI:= PosCa
     avI:= PosAv
@@ -31,15 +32,106 @@ procesos
       caI:= caI - 1
       BloquearEsquina(PosAv,caI)
       mover
-      tomarFlor
+      juntarFlor
       LiberarEsquina(PosAv,caI+1)
     derecha
     repetir cuadras
       avI:= avI - 1
       BloquearEsquina(avI, PosCa)
       mover
-      tomarFlor
-      LiberarEsquina(av+1,PosCa)
+      juntarFlor
+      LiberarEsquina(avI+1,PosCa)
+    derecha
+  fin
+  proceso escalonPyF (E cuadras: numero)
+  variables
+    avI,caI:numero
+  comenzar
+    caI:= PosCa
+    avI:= PosAv
+    repetir cuadras
+      caI:= caI + 1
+      BloquearEsquina(PosAv,caI)
+      mover
+      juntarFlor
+      juntarPapel
+      si caI > 5
+        LiberarEsquina(PosAv,caI-1)
+    derecha
+    repetir cuadras
+      avI:= avI + 1
+      BloquearEsquina(avI,PosCa)  
+      mover
+      juntarFlor
+      juntarPapel
+      LiberarEsquina(avI-1,PosCa)
+    derecha
+  fin
+  proceso escalonBajaPyF(E cuadras: numero)
+  variables
+    avI,caI: numero
+  comenzar
+    caI:= PosCa
+    avI:= PosAv
+    repetir cuadras
+      caI:= caI - 1
+      BloquearEsquina(PosAv,caI)
+      mover
+      juntarFlor
+      juntarPapel
+      LiberarEsquina(PosAv,caI+1)
+    derecha
+    repetir cuadras
+      avI:= avI - 1
+      BloquearEsquina(avI, PosCa)
+      mover
+      juntarFlor
+      juntarPapel
+      LiberarEsquina(avI+1,PosCa)
+    derecha
+  fin
+  proceso escalonPapel (E cuadras: numero)
+  variables
+    avI,caI:numero
+  comenzar
+    caI:= PosCa
+    avI:= PosAv
+    repetir cuadras
+      caI:= caI + 1
+      BloquearEsquina(PosAv,caI)
+      mover
+      juntarPapel
+      si caI > 5
+        LiberarEsquina(PosAv,caI-1)
+    derecha
+    repetir cuadras
+      avI:= avI + 1
+      BloquearEsquina(avI,PosCa)  
+      mover
+      juntarPapel
+      LiberarEsquina(avI-1,PosCa)
+    derecha
+  fin
+  proceso escalonBajaPapel(E cuadras: numero)
+  variables
+    avI,caI: numero
+  comenzar
+    caI:= PosCa
+    avI:= PosAv
+    repetir cuadras
+      caI:= caI - 1
+      BloquearEsquina(PosAv,caI)
+      mover
+      juntarPapel
+      LiberarEsquina(PosAv,caI+1)
+    derecha
+    repetir cuadras
+      avI:= avI - 1
+      BloquearEsquina(avI, PosCa)
+      mover
+      juntarPapel
+      LiberarEsquina(avI+1,PosCa)
+    derecha
   fin
   proceso recorrerCallePapel
   comenzar
@@ -55,59 +147,36 @@ procesos
   fin
   proceso recorrerCallePyF
   comenzar
-    mientras ((HayPapelEnLaBolsa) & (HayFlorEnLaBolsa) & (PosAv < 100))
-      depositarPapel
+    mientras ((HayFlorEnLaBolsa) & (PosAv < 100))
       depositarFlor
+      depositarPapel
       mover
   fin
-  proceso juntarPapel(ES papel: numero)
+  proceso juntarPapel
   comenzar
     mientras HayPapelEnLaEsquina
       tomarPapel
-      papel:= papel + 1
   fin
-  proceso juntarFlor(ES flor: numero)
+  proceso juntarFlor
   comenzar
     mientras HayFlorEnLaEsquina
       tomarFlor
-      flor:= flor + 1
   fin
-  proceso recorrerPapel(E cuadras: numero ES papel: numero)
+  proceso cuadrantePapel (E cuadras:numero )
   comenzar
-    repetir cuadras
-      juntarPapel(papel)
-      mover
+    escalonPapel(cuadras)
+    escalonBajaPapel(cuadras)
+    
   fin
-  proceso recorrerFlor(E cuadras: numero ES flor: numero)
+  proceso cuadranteFlor (E cuadras:numero )
   comenzar
-    repetir cuadras
-      juntarFlor(flor)
-      mover
+    escalonFlor(cuadras)
+    escalonBajaFlor (cuadras)
   fin
-  proceso recorrerPyF(E cuadras: numero ES papel: numero ES flor: numero)
+  proceso cuadrantePyF (E cuadras:numero)
   comenzar
-    repetir cuadras
-      juntarPapel(papel)
-      juntarFlor(flor)
-      mover
-  fin
-  proceso cuadrantePapel (E cuadras:numero ES papel:numero)
-  comenzar
-    repetir 4
-      recorrerPapel(cuadras,papel)
-      derecha
-  fin
-  proceso cuadranteFlor (E cuadras:numero ES flor:numero)
-  comenzar
-    repetir 4
-      recorrerFlor(cuadras,flor)
-      derecha
-  fin
-  proceso cuadrantePyF (E cuadras:numero ES flor:numero ES papel: numero)
-  comenzar
-    repetir 4
-      recorrerPyF(cuadras,papel,flor)
-      derecha
+    escalonPyF(cuadras)
+    escalonBajaPyF(cuadras)
   fin
 areas
   area: AreaPC (1,1,100,99)
@@ -115,11 +184,10 @@ areas
 robots
   robot robot3
   variables
-    papel,cuadras,calle: numero 
+    cuadras,calle: numero 
   comenzar
-    papel:= 0
     cuadras:= 7
-    cuadrantePapel(cuadras,papel)
+    cuadrantePapel(cuadras)
     EnviarMensaje(3,RJ)
     RecibirMensaje(calle,RJ)
     Pos(1,calle)
@@ -128,11 +196,10 @@ robots
   fin
   robot robot1
   variables
-    flor,cuadras,calle: numero 
+    cuadras,calle: numero 
   comenzar
-    flor:= 0
     cuadras:= 6
-    cuadranteFlor(cuadras,flor)
+    cuadranteFlor(cuadras)
     EnviarMensaje(1,RJ)
     RecibirMensaje(calle,RJ)
     Pos(1,calle)
@@ -141,12 +208,10 @@ robots
   fin
   robot robot2
   variables
-    flor,papel,cuadras,calle: numero 
+    cuadras,calle: numero 
   comenzar
-    flor:= 0
-    papel:=0
     cuadras:= 10
-    cuadrantePyF(cuadras,flor,papel)
+    cuadrantePyF(cuadras)
     EnviarMensaje(2,RJ)
     RecibirMensaje(calle,RJ)
     Pos(1,calle)
