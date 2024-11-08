@@ -5,15 +5,15 @@ procesos
     tomarFlor
     flor:= flor + 1
   fin
-  proceso accion (ES flor: numero ES aux: boolean E av: numero E ca:numero E avI: numero E caI: numero)
+  proceso accion (ES flor: numero ES aux: numero E av: numero E ca:numero E avI: numero E caI: numero)
   comenzar
     BloquearEsquina(av,ca)
     Pos(av,ca)
     si HayFlorEnLaEsquina
-      juntarFlor
+      juntarFlor(flor)
     sino
-      aux:= false
-    pos(avI,caI)
+      aux:= 1
+    Pos(avI,caI)
     LiberarEsquina(av,ca)
   fin
 areas
@@ -26,16 +26,16 @@ areas
 robots
   robot robot1
   variables
-    aux: boolean flor,caI,avI,ca,av,soy: numero
+    aux,flor,caI,avI,ca,av,soy: numero
   comenzar
     flor:= 0
-    aux:= true
+    aux:= 0
     caI:= PosCa
     avI:= PosAv
     RecibirMensaje(soy,RJ)
     RecibirMensaje(av,RJ)
     RecibirMensaje(ca,RJ)
-    mientras (aux)
+    mientras (aux=0)
       accion(flor,aux,av,ca,avI,caI)
     EnviarMensaje(soy,RJ)
     EnviarMensaje(flor,RJ)
@@ -64,16 +64,18 @@ robots
       RecibirMensaje(quien,*)
       si (quien = 1)
         RecibirMensaje(flor,R1)
-      si (quien = 2)
-        RecibirMensaje(flor,R2)
-      si (quien = 3)
-        RecibirMensaje(flor,R3)
       sino
-        RecibirMensaje(flor,R4)
-      si flor> florMax
+        si (quien = 2)
+          RecibirMensaje(flor,R2)
+        sino
+          si (quien = 3)
+            RecibirMensaje(flor,R3)
+          sino
+            RecibirMensaje(flor,R4)
+      si (flor > florMax)
         florMax:= flor
         quienMax:= quien
-    Informar(quien)
+    Informar(quienMax)
   fin
 variables
   R1: robot1
