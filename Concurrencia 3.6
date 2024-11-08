@@ -1,6 +1,6 @@
 programa ejemplo
 procesos
-    proceso escalonFlor()
+  proceso escalonFlor (E cuadras: numero)
   variables
     avI,caI:numero
   comenzar
@@ -10,6 +10,7 @@ procesos
       caI:= caI + 1
       BloquearEsquina(PosAv,caI)
       mover
+      tomarFlor
       si caI > 3
         LiberarEsquina(PosAv,caI-1)
     derecha
@@ -17,23 +18,44 @@ procesos
       avI:= avI + 1
       BloquearEsquina(avI,PosCa)  
       mover
+      tomarFlor
       LiberarEsquina(avI-1,PosCa)
   fin
-  proceso recorrerCallePapel(E papel:numero)
+  proceso escalonBajaFlor(E cuadras: numero)
+  variables
+    ds: numero
   comenzar
-    mientras HayPapelEnLaBolsa & PosAv < 100
+    caI:= PosCa
+    avI:= PosAv
+    repetir cuadras
+      caI:= caI - 1
+      BloquearEsquina(PosAv,caI)
+      mover
+      tomarFlor
+      LiberarEsquina(PosAv,caI+1)
+    derecha
+    repetir cuadras
+      avI:= avI - 1
+      BloquearEsquina(avI, PosCa)
+      mover
+      tomarFlor
+      LiberarEsquina(av+1,PosCa)
+  fin
+  proceso recorrerCallePapel
+  comenzar
+    mientras ((HayPapelEnLaBolsa) & (PosAv < 100))
       depositarPapel
       mover
   fin
-  proceso recorrerCalleFlor(E flor:numero)
+  proceso recorrerCalleFlor
   comenzar
-    mientras HayFlorEnLaBolsa & PosAv < 100
+    mientras ((HayFlorEnLaBolsa) & (PosAv < 100))
       depositarFlor
       mover
   fin
-  proceso recorrerCallePyF(E flor: numero E papel:numero )
+  proceso recorrerCallePyF
   comenzar
-    mientras HayPapelEnLaBolsa & HayFlorEnLaBolsa & PosAv < 100
+    mientras ((HayPapelEnLaBolsa) & (HayFlorEnLaBolsa) & (PosAv < 100))
       depositarPapel
       depositarFlor
       mover
@@ -46,7 +68,7 @@ procesos
   fin
   proceso juntarFlor(ES flor: numero)
   comenzar
-    mientras HayPapelEnLaEsquina
+    mientras HayFlorEnLaEsquina
       tomarFlor
       flor:= flor + 1
   fin
@@ -78,7 +100,7 @@ procesos
   proceso cuadranteFlor (E cuadras:numero ES flor:numero)
   comenzar
     repetir 4
-      recorrerFlor(cuadras,papel)
+      recorrerFlor(cuadras,flor)
       derecha
   fin
   proceso cuadrantePyF (E cuadras:numero ES flor:numero ES papel: numero)
@@ -98,11 +120,11 @@ robots
     papel:= 0
     cuadras:= 7
     cuadrantePapel(cuadras,papel)
-    EnviarMensaje(1,RJ)
+    EnviarMensaje(3,RJ)
     RecibirMensaje(calle,RJ)
     Pos(1,calle)
     derecha
-    recorrerCallePapel(papel)
+    recorrerCallePapel
   fin
   robot robot1
   variables
@@ -110,12 +132,12 @@ robots
   comenzar
     flor:= 0
     cuadras:= 6
-    cuadrantePapel(cuadras,flor)
-    EnviarMensaje(2,RJ)
+    cuadranteFlor(cuadras,flor)
+    EnviarMensaje(1,RJ)
     RecibirMensaje(calle,RJ)
     Pos(1,calle)
     derecha
-    recorrerCalleFlor(flor)
+    recorrerCalleFlor
   fin
   robot robot2
   variables
@@ -125,11 +147,11 @@ robots
     papel:=0
     cuadras:= 10
     cuadrantePyF(cuadras,flor,papel)
-    EnviarMensaje(3,RJ)
+    EnviarMensaje(2,RJ)
     RecibirMensaje(calle,RJ)
     Pos(1,calle)
     derecha
-    recorrerCallePyF(flor,papel)
+    recorrerCallePyF
   fin
   robot robotJefe
   variables
@@ -145,8 +167,7 @@ robots
           EnviarMensaje(a,R2)
         sino
           EnviarMensaje(a,R3)
-      a:= a + 1
-        
+      a:= a + 1 
   fin
 variables
   RJ: robotJefe
