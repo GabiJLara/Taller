@@ -1,0 +1,146 @@
+programa ejemplo
+procesos
+  proceso recorrerCallePapel(E papel:numero)
+  comenzar
+    mientras HayPapelEnLaBolsa & PosAv < 100
+      depositarPapel
+      mover
+  fin
+  proceso recorrerCalleFlor(E flor:numero)
+  comenzar
+    mientras HayFlorEnLaBolsa & PosAv < 100
+      depositarFlor
+      mover
+  fin
+  proceso recorrerCallePyF(E flor: numero E papel:numero )
+  comenzar
+    mientras HayPapelEnLaBolsa & HayFlorEnLaBolsa & PosAv < 100
+      depositarPapel
+      depositarFlor
+      mover
+  fin
+  proceso juntarPapel(ES papel: numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papel:= papel + 1
+  fin
+  proceso juntarFlor(ES flor: numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso recorrerPapel(E cuadras: numero ES papel: numero)
+  comenzar
+    repetir cuadras
+      juntarPapel(papel)
+      mover
+  fin
+  proceso recorrerFlor(E cuadras: numero ES flor: numero)
+  comenzar
+    repetir cuadras
+      juntarFlor(flor)
+      mover
+  fin
+  proceso recorrerPyF(E cuadras: numero ES papel: numero ES flor: numero)
+  comenzar
+    repetir cuadras
+      juntarPapel(papel)
+      juntarFlor(flor)
+      mover
+  fin
+  proceso cuadrantePapel (E cuadras:numero ES papel:numero)
+  comenzar
+    repetir 4
+      recorrerPapel(cuadras,papel)
+      derecha
+  fin
+  proceso cuadranteFlor (E cuadras:numero ES flor:numero)
+  comenzar
+    repetir 4
+      recorrerFlor(cuadras,papel)
+      derecha
+  fin
+  proceso cuadrantePyF (E cuadras:numero ES flor:numero ES papel: numero)
+  comenzar
+    repetir 4
+      recorrerPyF(cuadras,papel,flor)
+      derecha
+  fin
+areas
+  area: AreaPC (1,1,100,99)
+  areaJefe: AreaP(100,100,100,100)
+robots
+  robot robot3
+  variables
+    papel,cuadras,calle: numero 
+  comenzar
+    papel:= 0
+    cuadras:= 7
+    cuadrantePapel(cuadras,papel)
+    EnviarMensaje(1,RJ)
+    RecibirMensaje(calle,RJ)
+    Pos(1,calle)
+    derecha
+    recorrerCallePapel(papel)
+  fin
+  robot robot1
+  variables
+    flor,cuadras,calle: numero 
+  comenzar
+    flor:= 0
+    cuadras:= 6
+    cuadrantePapel(cuadras,flor)
+    EnviarMensaje(2,RJ)
+    RecibirMensaje(calle,RJ)
+    Pos(1,calle)
+    derecha
+    recorrerCalleFlor(flor)
+  fin
+  robot robot2
+  variables
+    flor,papel,cuadras,calle: numero 
+  comenzar
+    flor:= 0
+    papel:=0
+    cuadras:= 10
+    cuadrantePyF(cuadras,flor,papel)
+    EnviarMensaje(3,RJ)
+    RecibirMensaje(calle,RJ)
+    Pos(1,calle)
+    derecha
+    recorrerCallePyF(flor,papel)
+  fin
+  robot robotJefe
+  variables
+    quien,a:numero
+  comenzar
+    a:= 20
+    repetir 3
+      RecibirMensaje(quien,*)
+      si quien = 1
+        EnviarMensaje(a,R1)
+      sino
+        si quien= 2
+          EnviarMensaje(a,R2)
+        sino
+          EnviarMensaje(a,R3)
+      a:= a + 1
+        
+  fin
+variables
+  RJ: robotJefe
+  R1: robot1
+  R2: robot2
+  R3:robot3
+comenzar
+  AsignarArea (RJ, areaJefe)
+  AsignarArea (R1, area)
+  AsignarArea (R2, area)
+  AsignarArea (R3, area)
+  Iniciar(RJ, 100,100)
+  Iniciar(R1, 2,2)
+  Iniciar(R2, 5,5)
+  Iniciar(R3, 9,9)
+fin
