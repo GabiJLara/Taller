@@ -1,0 +1,110 @@
+programa Practica4Ejercicio1
+procesos
+  proceso juntarFlores(E flor: numero)
+  comenzar
+    repetir flor
+      tomarFlor
+  fin
+  proceso dejarFlores(E flor: numero)
+  comenzar
+    repetir flor
+      depositarFlor
+  fin
+  proceso accion (ES noTermine: boolean  ES calle: numero E flor: numero)
+  comenzar
+    si (PosCa+flor-1) <= 100
+      repetir (flor-1)
+        depositarFlor
+        mover
+        calle:= calle + 1
+      depositarFlor
+    sino
+      repetir (100-PosCa)
+        depositarFlor
+        mover
+      depositarFlor
+    si (PosCa=100)
+      noTermine:= F
+  fin
+areas
+  areaR1: AreaP (1,1,1,100)
+  areaR2: AreaP (2,1,2,100)
+  areaR3: AreaP (3,1,3,100)
+  areaRJ: AreaP(100,100,100,100)
+robots
+  robot robotCliente
+  variables
+    flores,calle,avenida,caI,avI: numero noTermine,ok: boolean
+  comenzar
+    noTermine:= V
+    calle:=PosCa
+    avenida:= PosAv
+    avI:= PosAv
+    caI:= PosCa
+    mientras noTermine
+      Random(flores,1,4)
+      EnviarMensaje(PosAv,RJ)  
+      EnviarMensaje(flores,RJ)
+      EnviarMensaje(PosAv,RJ)
+      EnviarMensaje(calle+1,RJ)
+      RecibirMensaje(ok,RJ)
+      Pos(PosAv,calle+1)
+      juntarFlores(flor)
+      accion(noTermine,calle,flores)
+      Pos(avI,caI)
+      si noTermine= V
+        EnviarMensaje(1,RJ)
+      sino
+        EnviarMensaje(0,RJ)
+  fin
+  robot robotServidor
+  variables
+    ID,avenida,calle,aux: numero
+  comenzar
+    aux:= 0
+    mientras (aux < 3)
+      RecibirMensaje(ID,*)
+      si (ID= 1)
+        RecibirMensaje(flor,R1)
+        RecibirMensaje(avenida,R1)
+        RecibirMensaje(calle,R1)
+      sino
+        si (ID= 2)
+          RecibirMensaje(flor,R2)
+          RecibirMensaje(avenida,R2)
+          RecibirMensaje(calle,R2)
+        sino
+          RecibirMensaje(flor,R3)
+          RecibirMensaje(avenida,R3)
+          RecibirMensaje(calle,R3)
+      Pos(avenida,calle)
+      dejarFlores(flor)
+      Pos(100,100)
+      si (ID=1)
+        EnviarMensaje(V,R1)
+        RecibirMensaje(verifico,R1)
+      sino
+        si (ID=2)
+          EnviarMensaje(V,R2)
+          RecibirMensaje(verifico,R2)
+        sino
+          EnviarMensaje(V,R3)
+          RecibirMensaje(verifico,R3)
+      si (verifico = 1)
+        aux:= aux + 1
+  fin
+variables
+  RJ: robotServidor
+  R1: robotCliente
+  R2: robotCliente
+  R3: robotCliente
+comenzar
+  AsignarArea (RJ, areaRJ)
+  AsignarArea (R1, areaR1)
+  AsignarArea (R2, areaR2)
+  AsignarArea (R3, areaR3)
+  Iniciar(RJ, 100,100)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 2,1)
+  Iniciar(R3, 3,1)
+fin
