@@ -34,16 +34,17 @@ areas
 robots
   robot robotCliente
   variables
-    flores,calle,avenida,caI,avI: numero noTermine,ok: boolean
+    flores,calle,avenida,caI,avI,ID: numero noTermine,ok: boolean
   comenzar
     noTermine:= V
     calle:=PosCa
     avenida:= PosAv
     avI:= PosAv
     caI:= PosCa
+    ID:= PosAv
     mientras noTermine
       Random(flores,1,4)
-      EnviarMensaje(PosAv,RJ)  
+      EnviarMensaje(ID,RJ)  
       EnviarMensaje(flores,RJ)
       EnviarMensaje(PosAv,RJ)
       EnviarMensaje(calle+1,RJ)
