@@ -1,0 +1,100 @@
+programa ejemplo
+procesos
+  proceso juntarFlores(ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso juntarPapeles(ES papel: numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papel:= papel + 1
+  fin
+  proceso recorrerFlores (ES flor: numero)
+  comenzar
+    repetir 99
+      juntarFlores(flor)
+      mover
+    juntarFlores(flor)  
+  fin
+  proceso recorrerPapeles (ES papel: numero)
+  comenzar
+    repetir 99
+      juntarPapeles(papel)
+      mover
+    juntarPapeles(papel)  
+  fin
+areas
+  AreaR1: AreaP (2,1,2,100)
+  AreaR2: AreaP (3,1,3,100)
+  AreaA1: AreaP (98,1,98,100)
+  AreaA2: AreaP (99,1,99,100)
+  AreaJefe: AreaP (1,1,1,1)
+robots
+  robot robot1
+  variables
+    flor,av: numero
+  comenzar
+    flor:= 0
+    av:= PosAv
+    recorrerFlores(flor)
+    EnviarMensaje(av, RJ)
+    EnviarMensaje(flor, RJ)
+  fin
+  robot robot2
+  variables
+    papel,av: numero
+  comenzar
+    papel:= 0
+    av:= PosAv
+    recorrerPapeles(papel)
+    EnviarMensaje(av, RJ)
+    EnviarMensaje(papel, RJ)
+  fin
+  robot robot3
+  variables
+    objeto1, objeto2,equipo,flor,papel: numero
+  comenzar
+    objeto1:=0
+    objeto2:=0
+    repetir 4
+      RecibirMensaje(equipo,*)
+      si (equipo=2)
+        RecibirMensaje(flor,R1)
+        objeto1:= objeto1 + flor
+      sino
+        si(equipo=3)
+          RecibirMensaje(flor, R2)
+          objeto1:= objeto1 + flor
+        sino
+          si(equipo= 98)
+            RecibirMensaje(papel,A1)
+            objeto2:= objeto2 + papel
+          sino
+            RecibirMensaje(papel,A2)
+            objeto2:= objeto2 + papel
+    si (objeto1 > objeto2)
+      Informar(1)
+    sino 
+      Informar(2)
+  fin
+variables
+  R1: robot1
+  R2: robot1
+  A1: robot2
+  A2: robot2
+  RJ: robot3
+comenzar
+  AsignarArea(R1, AreaR1)
+  AsignarArea(R2, AreaR2)
+  AsignarArea(A1, AreaA1)
+  AsignarArea(A2, AreaA2)
+  AsignarArea(RJ, AreaJefe)
+  Iniciar(R1, 2,1)
+  Iniciar(R2, 3,1)
+  Iniciar(A1, 98,1)
+  Iniciar(A2, 99,1)
+  Iniciar(RJ, 1,1)
+fin
