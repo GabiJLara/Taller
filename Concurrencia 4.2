@@ -1,0 +1,98 @@
+programa ejemplo
+procesos
+  proceso juntarFlores(ES flor: numero)
+  variables
+    calle,avenida: numero
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      mientras (HayFlorEnLaEsquina) & (flor < 5)
+        tomarFlor
+        flor:= flor + 1
+      si (flor = 5)
+        calle:= PosCa
+        avenida:=PosAv
+        dejarFlor(avenida,calle)
+        flor:= 0
+  fin
+  proceso recorrerAvenida
+  variables
+    flor: numero
+  comenzar
+    flor:= 0
+    repetir 99
+      juntarFlores(flor)
+      mover
+    juntarFlores(flor)
+  fin
+  proceso dejarFlor(E av: numero E ca: numero)
+  comenzar
+    BloquearEsquina(50,50)
+    Pos(50,50)
+    repetir 5
+      depositarFlor
+    Pos(av,ca)
+    LiberarEsquina(50,50)
+  fin
+  proceso consumir(E avenida: numero E calle: numero)
+  variables
+    intentos,flores,flor: numero
+  comenzar
+    intentos:= 0
+    mientras (intentos < 8)
+      Random(flores,2,5)
+      flor:= 0
+      BloquearEsquina(50,50)
+      Pos(50,50)
+      mientras (~(flores = flor) &(HayFlorEnLaEsquina))
+        tomarFlor
+        flor:=flor + 1
+      si (flores = flor)
+        Pos(avenida,calle)
+        LiberarEsquina(50,50)
+        repetir flores
+          depositarFlor
+      sino
+        repetir flor
+          depositarFlor
+        Pos(avenida,calle)
+        LiberarEsquina(50,50)
+        intentos:= intentos + 1
+  fin
+areas
+  ciudad: AreaC (50,50,50,50)
+  areaR1: AreaP (5,1,5,100)
+  areaR2: AreaP (10,1,10,100)
+  areaR3: AreaP (11,1,11,1)
+  areaR4: AreaP (12,1,12,1)
+robots
+  robot productor
+  comenzar
+    recorrerAvenida
+  fin
+  robot consumidor
+  variables
+    avI,caI: numero
+  comenzar
+    avI:= PosAv
+    caI:= PosCa
+    consumir(avI,caI)
+  fin
+variables
+  R1: productor
+  R2: productor
+  R3: consumidor
+  R4: consumidor
+comenzar
+  AsignarArea(R1, ciudad)
+  AsignarArea(R2, ciudad)
+  AsignarArea(R3, ciudad)
+  AsignarArea(R4, ciudad)
+  AsignarArea(R1, areaR1)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R3, areaR3)
+  AsignarArea(R4, areaR4)
+  Iniciar(R1, 5,1)
+  Iniciar(R2, 10,1)
+  Iniciar(R3, 11,1)
+  Iniciar(R4, 12,1)
+fin
