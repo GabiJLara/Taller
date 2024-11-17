@@ -1,0 +1,85 @@
+programa ejemplo
+procesos
+  proceso recorrerCuatro
+  comenzar
+    juntarPapeles
+    repetir 4
+      mover
+      juntarPapeles
+  fin
+  proceso recorrerCinco
+  comenzar
+    repetir 5
+      mover
+      juntarPapeles
+  fin
+  proceso juntarPapeles 
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+  fin 
+areas
+  areaR1: AreaP (1,1,1,100)
+  areaR2: AreaP (2,1,2,100)
+  areaR3: AreaP (3,1,3,100)
+robots
+  robot robot1
+  variables
+    termino: boolean
+  comenzar
+    recorrerCuatro
+    EnviarMensaje(V,R2)
+    EnviarMensaje(V,R3)
+    RecibirMensaje(termino,*)
+    RecibirMensaje(termino,*)
+    repetir 19
+      recorrerCinco
+      EnviarMensaje(V,R2)
+      EnviarMensaje(V,R3)
+      RecibirMensaje(termino,*)
+      RecibirMensaje(termino,*)
+  fin
+  robot robot2
+  variables
+    termino: boolean
+  comenzar
+    recorrerCuatro
+    EnviarMensaje(V,R1)
+    EnviarMensaje(V,R3)
+    RecibirMensaje(termino,*)
+    RecibirMensaje(termino,*)
+    repetir 19
+      recorrerCinco
+      EnviarMensaje(V,R1)
+      EnviarMensaje(V,R3)
+      RecibirMensaje(termino,*)
+      RecibirMensaje(termino,*)
+  fin
+  robot robot3
+  variables
+    termino: boolean
+  comenzar
+    recorrerCuatro
+    EnviarMensaje(V,R2)
+    EnviarMensaje(V,R1)
+    RecibirMensaje(termino,*)
+    RecibirMensaje(termino,*)
+    repetir 19
+      recorrerCinco
+      EnviarMensaje(V,R2)
+      EnviarMensaje(V,R1)
+      RecibirMensaje(termino,*)
+      RecibirMensaje(termino,*)
+  fin
+variables
+  R1: robot1
+  R2: robot2
+  R3: robot3
+comenzar
+  AsignarArea(R1, areaR1)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R3, areaR3)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 2,1)
+  Iniciar(R3, 3,1)
+fin
