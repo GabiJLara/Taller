@@ -1,4 +1,4 @@
-programa ejemplo
+programa Practica5Ejercicio1
 procesos
   proceso juntarFlores(ES flor: numero)
   comenzar
@@ -6,95 +6,149 @@ procesos
       tomarFlor
       flor:= flor + 1
   fin
-  proceso juntarPapeles(ES papel: numero)
+  proceso juntarPapeles (ES papel: numero)
   comenzar
     mientras HayPapelEnLaEsquina
       tomarPapel
       papel:= papel + 1
   fin
-  proceso recorrerFlores (ES flor: numero)
+  proceso recorrerCalle (ES papel: numero)
   comenzar
-    repetir 99
+    repetir 96
+      mover
+      juntarPapeles(papel)
+  fin
+  proceso recorrerAvenida (ES flor: numero)
+  comenzar
+    repetir 96
       juntarFlores(flor)
       mover
-    juntarFlores(flor)  
   fin
-  proceso recorrerPapeles (ES papel: numero)
+  proceso hardCodeCalle (ES papel: numero)
+  variables
+    calle,avenida: numero
   comenzar
-    repetir 99
-      juntarPapeles(papel)
-      mover
-    juntarPapeles(papel)  
+    calle:= PosCa
+    avenida:= PosAv
+    juntarPapeles(papel)
+    avenida:= avenida + 1
+    BloquearEsquina(avenida,calle)
+    mover
+    juntarPapeles(papel)
+    avenida:= avenida + 1
+    BloquearEsquina(avenida,calle)
+    mover
+    LiberarEsquina(avenida-1,calle)
+    juntarPapeles(papel)
+    mover
+    LiberarEsquina(avenida,calle)
+    juntarPapeles(papel)
+  fin
+  proceso hardCodeAvenida (ES flor: numero)
+  variables
+    calle,avenida: numero
+  comenzar
+    calle:= PosCa
+    avenida:= PosAv
+    juntarFlores(flor)
+    calle:=calle + 1
+    BloquearEsquina(avenida,calle)
+    mover
+    juntarFlores(flor)
+    calle:= calle + 1
+    BloquearEsquina(avenida, calle)
+    mover
+    LiberarEsquina(avenida,calle-1)
+    juntarFlores(flor)
+    mover
+    LiberarEsquina(avenida,calle)
+    juntarFlores(flor)
   fin
 areas
-  AreaR1: AreaP (2,1,2,100)
-  AreaR2: AreaP (3,1,3,100)
-  AreaA1: AreaP (98,1,98,100)
-  AreaA2: AreaP (99,1,99,100)
-  AreaJefe: AreaP (1,1,1,1)
+  areaPC: AreaPC (2,98,3,99)
+  area1: AreaP (2,1,2,97)
+  area11: AreaP (2,100,2,100)
+  area2: AreaP (3,1,3,97)
+  area22: AreaP (3,100,3,100)
+  area3: AreaP (1,98,1,98)
+  area33: AreaP (4,98,100,98)
+  area4: AreaP (1,99,1,99)
+  area44: AreaP (4,99,100,99)
+  areaJefe: AreaP (1,1,1,1)
 robots
   robot robot1
   variables
-    flor,av: numero
+    flor,equipo: numero
   comenzar
     flor:= 0
-    av:= PosAv
-    recorrerFlores(flor)
-    EnviarMensaje(av, RJ)
-    EnviarMensaje(flor, RJ)
+    equipo:= PosAv
+    recorrerAvenida(flor)
+    hardCodeAvenida(flor)
+    EnviarMensaje(equipo,RJ)
+    EnviarMensaje(flor,RJ)
   fin
   robot robot2
   variables
-    papel,av: numero
+    papel,equipo: numero
   comenzar
     papel:= 0
-    av:= PosAv
-    recorrerPapeles(papel)
-    EnviarMensaje(av, RJ)
-    EnviarMensaje(papel, RJ)
+    equipo:= PosCa
+    derecha
+    hardCodeCalle(papel)
+    recorrerCalle(papel)
+    EnviarMensaje(equipo,RJ)
+    EnviarMensaje(papel,RJ)
   fin
   robot robot3
   variables
-    objeto1, objeto2,equipo,flor,papel: numero
+    equipo,flor,papel,flores, papeles: numero
   comenzar
-    objeto1:=0
-    objeto2:=0
+    flores:= 0
+    papeles:= 0
     repetir 4
       RecibirMensaje(equipo,*)
-      si (equipo=2)
+      si (equipo = 2)
         RecibirMensaje(flor,R1)
-        objeto1:= objeto1 + flor
+        flores:= flores + flor
       sino
-        si(equipo=3)
+        si (equipo = 3)
           RecibirMensaje(flor, R2)
-          objeto1:= objeto1 + flor
+          flores:= flores + flor
         sino
-          si(equipo= 98)
-            RecibirMensaje(papel,A1)
-            objeto2:= objeto2 + papel
+          si (equipo = 98)
+            RecibirMensaje(papel,R3)
+            papeles:= papeles + papel
           sino
-            RecibirMensaje(papel,A2)
-            objeto2:= objeto2 + papel
-    si (objeto1 > objeto2)
-      Informar(1)
-    sino 
+            RecibirMensaje(papel,R4)
+            papeles:= papeles + papel
+    si (papeles > flores)
       Informar(2)
+    sino
+      Informar(1)    
   fin
 variables
   R1: robot1
   R2: robot1
-  A1: robot2
-  A2: robot2
+  R3: robot2
+  R4: robot2
   RJ: robot3
 comenzar
-  AsignarArea(R1, AreaR1)
-  AsignarArea(R2, AreaR2)
-  AsignarArea(A1, AreaA1)
-  AsignarArea(A2, AreaA2)
-  AsignarArea(RJ, AreaJefe)
+  AsignarArea(R1, areaPC)
+  AsignarArea(R1, area1)
+  AsignarArea(R1, area11)
+  AsignarArea(R2, areaPC)
+  AsignarArea(R2, area2)
+  AsignarArea(R2, area22)
+  AsignarArea(R3, areaPC)
+  AsignarArea(R3, area3)
+  AsignarArea(R3, area33)
+  AsignarArea(R4, areaPC)
+  AsignarArea(R4, area4)
+  AsignarArea(R4, area44)
+  AsignarArea(RJ, areaJefe)
   Iniciar(R1, 2,1)
   Iniciar(R2, 3,1)
-  Iniciar(A1, 98,1)
-  Iniciar(A2, 99,1)
+  Iniciar(R3, 1,98)
+  Iniciar(R4, 1,99)
   Iniciar(RJ, 1,1)
 fin
