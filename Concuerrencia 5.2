@@ -1,0 +1,150 @@
+programa Practica5Ejercicio2
+procesos
+  proceso recorrerCalleUno (ES flor: numero)
+  comenzar
+    juntarTodo(flor)
+    repetir 9
+      mover
+      juntarTodo(flor)
+  fin
+  proceso recorrerCalles (ES flor: numero)
+  comenzar
+    repetir 10
+      mover
+      juntarTodo(flor)
+  fin
+  proceso juntarTodo (ES flor: numero)
+  comenzar
+    mientras ((HayFlorEnLaEsquina) & (HayPapelEnLaEsquina))
+      tomarPapel
+      tomarFlor
+      flor:= flor + 1
+    si HayFlorEnLaEsquina
+      mientras HayFlorEnLaEsquina
+        tomarFlor
+        flor:= flor + 1
+    sino
+      mientras HayPapelEnLaEsquina
+        tomarPapel
+  fin
+  proceso juntarFlores (ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso dejarFlores (ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaBolsa
+      depositarFlor
+  fin
+areas
+  areaR1: AreaP (1,1,100,1)
+  areaR2: AreaP (1,2,100,2)
+  areaR3: AreaP (1,3,100,3)
+  areaRJ: AreaP (1,4,1,4)
+  areaC: AreaC (50,50,50,50)
+robots
+  robot robot1
+  variables
+    flor,soy: numero x,y: boolean
+  comenzar
+    derecha
+    flor:= 0
+    recorrerCalleUno(flor)
+    EnviarMensaje(V, R2)
+    EnviarMensaje(V, R3)
+    RecibirMensaje(x, *)
+    RecibirMensaje(y, *)
+    repetir 9
+      recorrerCalles(flor)
+      EnviarMensaje(V, R2)
+      EnviarMensaje(V, R3)
+      RecibirMensaje(x, *)
+      RecibirMensaje(y, *)
+    BloquearEsquina(50,50)
+    Pos(50,50)
+    dejarFlores(flor)
+    Pos(1,1)
+    LiberarEsquina(50,50)
+    EnviarMensaje(V, RJ)
+  fin
+  robot robot2
+  variables
+    flor,soy: numero x,y: boolean
+  comenzar
+    derecha
+    flor:= 0
+    recorrerCalleUno(flor)
+    EnviarMensaje(V, R1)
+    EnviarMensaje(V, R3)
+    RecibirMensaje(x, *)
+    RecibirMensaje(y, *)
+    repetir 9
+      recorrerCalles(flor)
+      EnviarMensaje(V, R1)
+      EnviarMensaje(V, R3)
+      RecibirMensaje(x, *)
+      RecibirMensaje(y, *)
+    BloquearEsquina(50,50)
+    Pos(50,50)
+    dejarFlores(flor)
+    Pos(1,2)
+    LiberarEsquina(50,50)
+    EnviarMensaje(V, RJ)
+  fin
+  robot robot3
+  variables
+    flor,soy: numero x,y: boolean
+  comenzar
+    derecha
+    flor:= 0
+    soy:= PosCa
+    recorrerCalleUno(flor)
+    EnviarMensaje(V, R1)
+    EnviarMensaje(V, R2)
+    RecibirMensaje(x, *)
+    RecibirMensaje(y, *)
+    repetir 9
+      recorrerCalles(flor)
+      EnviarMensaje(V, R1)
+      EnviarMensaje(V, R2)
+      RecibirMensaje(x, *)
+      RecibirMensaje(y, *)
+    BloquearEsquina(50,50)
+    Pos(50,50)
+    dejarFlores(flor)
+    Pos(1,3)
+    LiberarEsquina(50,50)
+    EnviarMensaje(V, RJ)
+  fin
+  robot robotJefe
+  variables
+    x: boolean flor: numero
+  comenzar
+    repetir 3
+      RecibirMensaje(x, *)
+    Pos(50,50)
+    juntarFlores(flor)
+    Informar(flor)
+    Pos(1,4)
+  fin
+variables
+  R1: robot1
+  R2: robot2
+  R3: robot3
+  RJ: robotJefe
+comenzar
+  AsignarArea(R1, areaR1)
+  AsignarArea(R1, areaC)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R2, areaC)
+  AsignarArea(R3, areaR3)
+  AsignarArea(R3, areaC)
+  AsignarArea(RJ, areaRJ)
+  AsignarArea(RJ, areaC)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 1,2)
+  Iniciar(R3, 1,3)
+  Iniciar(RJ, 1,4)
+fin
