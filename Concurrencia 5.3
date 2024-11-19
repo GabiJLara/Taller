@@ -1,0 +1,131 @@
+programa Practica5Ejercicio3
+procesos
+  proceso juntarFlor(ES flor: numero)
+  comenzar
+    si HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso juntarFlores(ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso dejarFlores (ES flor: numero)
+  comenzar
+    repetir flor
+      depositarFlor
+  fin
+  proceso etapas (ES flor: numero ES avenida: numero)
+  variables
+    ca,av: numero
+  comenzar
+    mientras ((flor < 10) & (avenida < 15) & (PosAv < 100))
+      juntarFlor(flor)
+      mover
+      avenida:= avenida + 1
+    si (PosAv = 100)
+      si(flor = 10)
+        ca:= PosCa
+        av:= PosAv
+        BloquearEsquina(10,10)
+        Pos(10,10)
+        dejarFlores(flor)
+        Pos(av,ca)
+        LiberarEsquina(10,10)
+        flor:= 0
+        avenida:= 0
+        EnviarMensaje(F,R3)
+      sino
+        si (avenida = 15)
+          ca:= PosCa
+          av:= PosAv
+          BloquearEsquina(10,10)
+          Pos(10,10)
+          dejarFlores(flor)
+          Pos(av,ca)
+          LiberarEsquina(10,10)
+          avenida:= 0
+          flor := 0
+          EnviarMensaje(F,R3)  
+    sino
+      ca:= PosCa
+      av:= PosAv
+      BloquearEsquina(10,10)
+      Pos(10,10)
+      dejarFlores(flor)
+      Pos(av,ca)
+      LiberarEsquina(10,10)
+      flor:= 0
+      avenida:= 0
+      EnviarMensaje(F,R3)
+  fin
+areas
+  areaR1: AreaP (1,3,100,3)
+  areaR2: AreaP (1,4,100,4)
+  areaR3: AreaP (1,5,1,5)
+  areaC: AreaC (10,10,10,10)
+robots
+  robot recolector
+  variables
+    flor,avenida: numero
+  comenzar
+    derecha
+    flor:= 0
+    avenida:= 1
+    mientras (PosAv < 100)
+      etapas(flor,avenida)
+    EnviarMensaje(V,R3)
+  fin
+  robot cosechador
+  variables
+    robot1,robot2: boolean flor: numero
+  comenzar
+    flor:= 0
+    RecibirMensaje(robot1, R1)
+    RecibirMensaje(robot2, R2)
+    mientras ((robot1 = F) & (robot2 = F))
+      BloquearEsquina(10,10)
+      Pos(10,10)
+      juntarFlores(flor)
+      Pos(1,5)
+      LiberarEsquina(10,10)
+      RecibirMensaje(robot1, R1)
+      RecibirMensaje(robot2, R2)
+    si (robot1 = V) & (robot2 = V)
+      Informar(flor)
+    sino
+      si (robot1 = V)  
+        mientras (robot2 = F)
+          BloquearEsquina(10,10)
+          Pos(10,10)
+          juntarFlores(flor)
+          Pos(1,5)
+          LiberarEsquina(10,10)
+          RecibirMensaje(robot2, R2)
+      sino
+        si(robot2 = V)
+          mientras (robot1 = F)
+            BloquearEsquina(10,10)
+            Pos(10,10)
+            juntarFlores(flor)
+            Pos(1,5)
+            LiberarEsquina(10,10)
+            RecibirMensaje(robot1, R1)
+  fin
+variables
+  R1: recolector
+  R2: recolector
+  R3: cosechador
+comenzar
+  AsignarArea(R1, areaR1)
+  AsignarArea(R1, areaC)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R2, areaC)
+  AsignarArea(R3, areaR3)
+  AsignarArea(R3, areaC)
+  Iniciar(R1, 1,3)
+  Iniciar(R2, 1,4)
+  Iniciar(R3, 1,5)
+fin
