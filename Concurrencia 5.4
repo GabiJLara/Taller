@@ -1,0 +1,99 @@
+programa Practica5Ejercicio4
+procesos
+  proceso juntarFlores (ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso dejarFlores (E flor: numero)
+  comenzar
+    repetir flor
+      depositarFlor
+  fin
+areas
+  ciudad: AreaPC (40,40,60,60)
+  areaRJ: AreaP (4,1,4,1)
+  areaR1: AreaP (1,1,1,1)
+  areaR2: AreaP (2,1,2,1)
+  areaR3: AreaP (3,1,3,1)
+  areaC: AreaC (10,10,10,10)
+robots
+  robot robot1
+  variables
+    aux: boolean av,ca,avI,caI,flor: numero
+  comenzar
+    avI:= PosAv
+    caI:= PosCa
+    repetir 8
+      flor:= 0
+      RecibirMensaje(aux, RJ)
+      si(aux = V)
+        RecibirMensaje(av, RJ)
+        RecibirMensaje(ca, RJ)
+        Pos(av,ca)
+        juntarFlores(flor)
+        Pos(avI,caI)
+        EnviarMensaje(flor, RJ)
+    BloquearEsquina(10,10)
+    Pos(10,10)
+    mientras HayFlorEnLaBolsa
+      depositarFlor
+    Pos(avI,caI)
+    LiberarEsquina(10,10)
+  fin
+  robot robotJefe
+  variables
+    bot,avenida,calle,flor,aux: numero x: boolean
+  comenzar
+    flor:= 0
+    repetir 8 
+      Random(bot,1,3)
+      Random(avenida,40,60)
+      Random(calle,40,60)
+      si(bot = 1)
+        EnviarMensaje(F, R2)
+        EnviarMensaje(F, R3)
+        EnviarMensaje(V, R1)
+        EnviarMensaje(avenida, R1)
+        EnviarMensaje(calle, R1)
+      sino
+        si(bot = 2)
+          EnviarMensaje(F, R1)
+          EnviarMensaje(F, R3)
+          EnviarMensaje(V, R2)
+          EnviarMensaje(avenida, R2)
+          EnviarMensaje(calle, R2)
+        sino
+          EnviarMensaje(F, R1)
+          EnviarMensaje(F, R2)
+          EnviarMensaje(V, R3)
+          EnviarMensaje(avenida, R3)
+          EnviarMensaje(calle, R3)
+      RecibirMensaje(aux, *)   
+      flor:= flor + aux 
+    Informar(flor)
+
+  fin
+variables
+  R1: robot1
+  R2: robot1
+  R3: robot1
+  RJ: robotJefe
+comenzar
+  AsignarArea(R1, ciudad)
+  AsignarArea(R2, ciudad)
+  AsignarArea(R3, ciudad)
+  AsignarArea(R1, areaC)
+  AsignarArea(R2, areaC)
+  AsignarArea(R3, areaC)
+  AsignarArea(RJ, areaC)
+  AsignarArea(R1, areaR1)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R3, areaR3)
+  AsignarArea(RJ, areaRJ)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 2,1)
+  Iniciar(R3, 3,1)
+  Iniciar(RJ, 4,1)
+fin
