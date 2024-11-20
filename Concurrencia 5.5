@@ -1,0 +1,74 @@
+programa ejemplo
+procesos
+  proceso recorrerAvenida(E numAv: numero)
+  comenzar
+    Pos(numAv, 1)
+    repetir 99
+      mover
+  fin
+areas
+  ciudad: AreaC (100,1,100,1)
+  areaR1: AreaP (10,1,10,1)
+  areaR2: AreaP (11,1,11,1)
+  areaR3: AreaP (12,1,12,1)
+  areaRJ: AreaP (13,1,13,1)
+robots
+  robot cliente
+  variables
+    papel,avI,caI: numero
+  comenzar
+    avI:= PosAv
+    caI:= PosCa
+    repetir 4
+      EnviarMensaje(avI, RJ)
+      RecibirMensaje(papel, RJ)
+      repetir papel
+        BloquearEsquina(100,1)
+        Pos(100,1)
+        tomarPapel
+        Pos(avI,caI)
+        LiberarEsquina(100,1)
+        depositarPapel
+  fin
+  robot servidor
+  variables
+    quien,papel,avI,caI: numero
+  comenzar
+    avI:= PosAv
+    caI:= PosCa
+    repetir 12
+      RecibirMensaje(quien, *)
+      Random(papel,1,5)
+      BloquearEsquina(100,1)
+      Pos(100,1)
+      repetir papel
+        depositarPapel
+      Pos(avI,caI)
+      LiberarEsquina(100,1)
+      si (quien = 10)
+        EnviarMensaje(papel, R1)
+      sino
+        si (quien = 11)
+          EnviarMensaje(papel, R2)
+        sino
+          EnviarMensaje(papel, R3)
+  fin
+variables
+  R1: cliente
+  R2: cliente
+  R3: cliente
+  RJ: servidor
+comenzar
+  AsignarArea(R1, ciudad)
+  AsignarArea(R2, ciudad)
+  AsignarArea(R3, ciudad)
+  AsignarArea(RJ, ciudad)
+  AsignarArea(R1, areaR1)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R3, areaR3)
+  AsignarArea(RJ, areaRJ)
+  Iniciar(R1, 10,1)
+  Iniciar(R2, 11,1)
+  Iniciar(R3, 12,1)
+  Iniciar(RJ, 13,1)
+fin
