@@ -1,0 +1,152 @@
+"Tres robots deben realizar 3 escalones de 4x3 cada uno.
+Un robot fiscalizador deberá indicar a cada robot qué tarea debe realizar, de manera aleatoria, en cada escalón.
+Las tareas posibles son dos: juntar todas las flores o juntar todos los papeles.
+Al finalizar los 3 escalones, cada robot deberá depositar de a una las flores en el depósito de flores ubicado en la esquina (99,99) y de a uno los papeles en el depósito de papeles de la esquina (98,98).
+Una vez que los tres robots completaron los 3 escalones, el fiscalizador deberá vaciar el depósito que menos objetos tiene.
+El fiscalizador inicia en la esquina (1,1), y los robots papeleros inician en las esquinas (2,1), (32,1) y (62,1) respectivamente."
+
+
+programa ejemplo
+procesos
+  proceso juntarFlores(ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso juntarPapeles (ES papel: numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papel:= papel + 1
+  fin
+  proceso escalonPapel (ES papel: numero)
+  comenzar
+    repetir 4
+      juntarPapeles(papel)
+      mover
+    derecha
+    repetir 3
+      juntarPapeles(papel)
+      mover
+  fin
+  proceso escalonFlor (ES flor: numero)
+  comenzar
+    repetir 4
+      juntarFlores(flor)
+      mover
+    derecha
+    repetir 3
+      juntarFlores(flor)
+      mover
+  fin
+  proceso girar (E cant: numero)
+  comenzar
+    repetir cant
+      derecha
+  fin
+  proceso dejarFlor(E avI: numero E caI: numero)
+  comenzar
+    BloquearEsquina(99,99)
+    Pos(99,99)
+    depositarFlor
+    Pos(avI,caI)
+    LiberarEsquina(99,99)
+  fin
+  proceso dejarPapel(E avI: numero E caI: numero)
+  comenzar
+    BloquearEsquina(98,98)
+    Pos(98,98)
+    depositarPapel
+    Pos(avI,caI)
+    LiberarEsquina(98,98)
+  fin
+areas
+  areaR1: AreaP (2,1,31,100)
+  areaR2: AreaP (32,1,61,100)
+  areaR3: AreaP (62,1,91,100)
+  areaRJ: AreaP (1,1,1,1)
+  areaC: AreaC (98,98,99,99)
+robots
+  robot robot1
+  variables
+    flor,papel,tarea,avI,caI: numero
+  comenzar
+    avI:= PosAv
+    caI:= PosCa
+    flor:= 0
+    papel:= 0
+    repetir 3
+      RecibirMensaje(tarea,RJ)
+      si (tarea = 1)
+        escalonFlor(flor)
+      sino 
+        escalonPapel(papel)
+      girar(3) 
+    Pos(avI,caI)
+    mientras ((HayPapelEnLaBolsa) & (HayFlorEnLaBolsa))
+      dejarFlor(avI,caI)
+      dejarPapel(avI,caI)
+    si (HayPapelEnLaBolsa)
+      mientras HayPapelEnLaBolsa
+        dejarPapel(avI,caI)
+    sino
+      mientras HayFlorEnLaBolsa
+        dejarFlor(avI,caI)
+    EnviarMensaje(papel, RJ)
+    EnviarMensaje(flor, RJ) 
+  fin
+  robot fiscalizador
+  variables
+    tarea,papel,flor,papeles,flores: numero
+  comenzar
+    papeles:= 0
+    flores:= 0
+    repetir 3
+      Random(tarea, 1, 2)
+      EnviarMensaje(tarea, R1)
+      Random(tarea, 1, 2)
+      EnviarMensaje(tarea, R2)
+      Random(tarea, 1, 2)
+      EnviarMensaje(tarea, R3)
+    RecibirMensaje(papel, R1)
+    RecibirMensaje(flor, R1)
+    papeles:= papeles + papel
+    flores:= flores + flor
+    RecibirMensaje(papel, R2)
+    RecibirMensaje(flor, R2)
+    papeles:= papeles + papel
+    flores:= flores + flor
+    RecibirMensaje(papel, R3)
+    RecibirMensaje(flor, R3)
+    papeles:= papeles + papel
+    flores:= flores + flor
+    si (papeles > flores)
+      Pos(99,99)
+      mientras HayFlorEnLaEsquina
+        tomarFlor
+    sino
+      Pos(98,98)
+      mientras HayPapelEnLaEsquina
+        tomarPapel
+    Pos(1,1)
+  fin
+variables
+  R1: robot1
+  R2: robot1
+  R3: robot1
+  RJ: fiscalizador
+comenzar
+  AsignarArea(R1, areaR1)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R3, areaR3)
+  AsignarArea(RJ, areaRJ)
+  AsignarArea(R1, areaC)
+  AsignarArea(R2, areaC)
+  AsignarArea(R3, areaC)
+  AsignarArea(RJ, areaC)
+  Iniciar(RJ, 1,1)
+  Iniciar(R1, 2,1)
+  Iniciar(R2, 32,1)
+  Iniciar(R3, 62,1)
+fin
