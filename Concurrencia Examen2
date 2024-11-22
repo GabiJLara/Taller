@@ -1,0 +1,151 @@
+"Existen tres robots sembradores: dos papeleros RP1 y RP2, que depositan un papel en las esquinas sin papel de sus respectivas calles, y un robot florero RF, que deposita una flor en cada esquina sin flor de una avenida aleatoria entre 2 y 35, indicada por un robot fiscalizador.
+
+Cuando los tres sembradores terminan su tarea, el fiscalizador debe indicar al sembrador que terminó primero que vuelva a su esquina inicial, e informar la cantidad de elementos (flor o papel) que depositó dicho sembrador.
+
+Las esquinas de inicio son: RP1 en (1,8), RP2 en (15,1), RF en (1,2), y el fiscalizador en (1,1).
+Configure el entorno para que los sembradores cuenten con flores suficientes en su bolsa."
+
+
+
+
+programa examen
+procesos
+  proceso preguntarPapel (ES papel: numero)
+  comenzar
+    si ~(HayPapelEnLaEsquina)
+      depositarPapel
+      papel:= papel + 1
+  fin
+  proceso preguntarFlor (ES flor: numero)
+  comenzar
+    si ~(HayFlorEnLaEsquina)
+      depositarFlor
+      flor:= flor + 1
+  fin
+areas
+  areaR1R3: AreaPC (2,8,35,8)
+  areaR2R3: AreaPC (2,15,35,15)
+  areaR1: AreaP (1,8,1,8)
+  areaR11: AreaP (36,8,100,8)
+  areaR2: AreaP (1,15,1,15)
+  areaR22: AreaP (36,15,100,15)
+  areaR3333: AreaP (1,2,1,2)
+  areaR3: AreaP (2,1,35,7)
+  areaR33: AreaP (2,9,35,14)
+  areaR333: AreaP (2,16,35,100)
+  areaRJ: AreaP (1,1,1,1)
+robots
+  robot robot1
+  variables
+    papel,avenida,ca,avC: numero  aux: boolean
+  comenzar
+    papel:= 0
+    avenida:= PosAv
+    ca:= PosCa
+    derecha
+    RecibirMensaje(avC, RJ)
+    avC:= avC - 1
+    mientras (PosAv < avC)
+      preguntarPapel(papel)
+      mover
+    avC:= avC + 1
+    BloquearEsquina(avC,ca)
+    mover
+    preguntarPapel(papel)
+    mover
+    LiberarEsquina(avC,ca)
+    preguntarPapel(papel)
+    mientras (PosAv < 100)
+      mover
+      preguntarPapel(papel)
+    EnviarMensaje(ca, RJ)
+    RecibirMensaje(aux, RJ)
+    si (aux = V)
+      Pos(1, ca)
+      Informar(papel)
+  fin
+  robot robot2
+  variables
+    flor,avenida,calle: numero  aux: boolean
+  comenzar
+    calle:= PosCa
+    RecibirMensaje(avenida, RJ)
+    Pos(avenida, 1)
+    flor:= 0
+    repetir 6
+      preguntarFlor(flor)
+      mover
+    preguntarFlor(flor)
+    BloquearEsquina(avenida,8)
+    mover
+    preguntarFlor(flor)
+    mover
+    LiberarEsquina(avenida,8)
+    repetir 5
+      preguntarFlor(flor)
+      mover
+    preguntarFlor(flor)
+    BloquearEsquina(avenida,15)
+    mover
+    preguntarFlor(flor)
+    mover
+    LiberarEsquina(avenida,15)
+    repetir 84
+      preguntarFlor(flor)
+      mover
+    preguntarFlor(flor)
+    EnviarMensaje(calle, RJ)
+    RecibirMensaje(aux, RJ)
+    si (aux = V)
+      Pos(1,2)
+      Informar(flor)
+  fin
+  robot fiscalizador
+  variables
+    avenida,no,quien: numero
+  comenzar
+    Random(avenida, 2, 35)
+    EnviarMensaje(avenida, R3)
+    EnviarMensaje(avenida, R1)
+    EnviarMensaje(avenida, R2)
+    RecibirMensaje(quien, *)
+    RecibirMensaje(no, *)
+    RecibirMensaje(no, *)
+    si (quien = 8)
+      EnviarMensaje(V, R1)
+      EnviarMensaje(F, R2)
+      EnviarMensaje(F, R3)
+    sino
+      si (quien = 15)
+        EnviarMensaje(V, R2)
+        EnviarMensaje(F, R1)
+        EnviarMensaje(F, R3)
+      sino
+        EnviarMensaje(F, R2)
+        EnviarMensaje(F, R1)
+        EnviarMensaje(V, R3)
+  fin
+variables
+  R1: robot1
+  R2: robot1
+  R3: robot2
+  RJ: fiscalizador
+comenzar
+  AsignarArea(R1, areaR1)
+  AsignarArea(R1, areaR11)
+  AsignarArea(R1, areaR1R3)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R2, areaR22)
+  AsignarArea(R3, areaR3333)
+  AsignarArea(R2, areaR2R3)
+  AsignarArea(R3, areaR3)
+  AsignarArea(R3, areaR33)
+  AsignarArea(R3, areaR333)
+  AsignarArea(R3, areaR1R3)
+  AsignarArea(R3, areaR2R3)
+  AsignarArea(RJ, areaRJ)
+  Iniciar(R1, 1,8)
+  Iniciar(R2, 1,15)
+  Iniciar(R3, 1,2)
+  Iniciar(RJ, 1,1)
+fin
