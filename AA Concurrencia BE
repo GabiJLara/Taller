@@ -1,0 +1,167 @@
+"Cuatro robots deben jugar un juego de esconder una flor y encontrarla. Hay un robot “escondedor” y tres robots “buscadores”. 
+El robot escondedor debe depositar una flor en una casilla del tablero (de 10x10 casillas), sin que los otros lo vean. 
+Luego los tres buscadores deben comenzar la búsqueda de la flor hasta encontrarla (ellos no saben dónde está). 
+Para ello, los tres buscadores, en simultáneo, eligen una casilla del tablero distinta para cada uno y se dirigen a ella para ver si encuentran la flor, luego vuelven a su esquina de inicio.
+ El juego continúa de la misma manera hasta que uno de los tres robots buscadores encuentra la flor. El robot que encontró se declara ganador (lo debe informar al escondedor) y el juego finaliza para todos los robots. 
+Los cuatro robots comienzan en (1,1), (2,2), (3,3), y (4,4)."
+
+
+programa examenRecursantesT1
+procesos
+  proceso recorrerAvenida(E numAv: numero)
+  comenzar
+    Pos(numAv, 1)
+    repetir 99
+      mover
+  fin
+  proceso juntarFlor (ES flor: numero)
+  comenzar
+    si (HayFlorEnLaEsquina)
+      tomarFlor
+      flor:= flor + 1
+  fin
+areas
+  ciudad: AreaC (10,10,13,13)
+  areaR1: AreaP (1,1,1,1)
+  areaR2: AreaP (2,2,2,2)
+  areaR3: AreaP (3,3,3,3)
+  areaR4: AreaP (4,4,4,4)
+robots
+  robot buscador
+  variables
+    avenida,calle,av,ca,ID,flor: numero aux,aux1: boolean
+  comenzar
+    RecibirMensaje(ID,R4)
+    av:= PosAv
+    ca:= PosCa
+    flor:= 0
+    aux:= V
+    mientras (aux = V)
+      Random(avenida, 10,13)
+      Random(calle, 10,13)
+      BloquearEsquina(avenida,calle)
+      Pos(avenida,calle)
+      juntarFlor(flor)
+      Pos(av,ca)
+      LiberarEsquina(avenida,calle)
+      si(flor = 1)
+        EnviarMensaje(F,R2)
+        EnviarMensaje(F,R3)
+        EnviarMensaje(ID,R4)
+        aux:= F
+        RecibirMensaje(aux1,R2)
+        RecibirMensaje(aux1,R3)
+      sino
+        EnviarMensaje(V,R2)
+        EnviarMensaje(V, R3)
+        RecibirMensaje(aux1,R2)
+        si (aux1 = F)
+          aux:= aux1
+        RecibirMensaje(aux1,R3)
+        si (aux1 = F)
+          aux:= aux1
+  fin
+  robot buscador2
+  variables
+    avenida,calle,av,ca,ID,flor: numero aux,aux1: boolean
+  comenzar
+    RecibirMensaje(ID,R4)
+    av:= PosAv
+    ca:= PosCa
+    flor:= 0
+    aux:= V
+    mientras (aux = V)
+      Random(avenida, 10,13)
+      Random(calle, 10,13)
+      BloquearEsquina(avenida,calle)
+      Pos(avenida,calle)
+      juntarFlor(flor)
+      Pos(av,ca)
+      LiberarEsquina(avenida,calle)
+      si(flor = 1)
+        EnviarMensaje(F,R1)
+        EnviarMensaje(F,R3)
+        EnviarMensaje(ID,R4)
+        aux:= F
+        RecibirMensaje(aux1,R1)
+        RecibirMensaje(aux1,R3)
+      sino
+        EnviarMensaje(V,R1)
+        EnviarMensaje(V, R3)
+        RecibirMensaje(aux1,R1)
+        si (aux1 = F)
+          aux:= aux1
+        RecibirMensaje(aux1,R3)
+        si (aux1 = F)
+          aux:= aux1
+  fin
+  robot buscador3
+  variables
+    avenida,calle,av,ca,ID,flor: numero aux,aux1: boolean
+  comenzar
+    RecibirMensaje(ID,R4)
+    av:= PosAv
+    ca:= PosCa
+    flor:= 0
+    aux:= V
+    mientras (aux = V)
+      Random(avenida, 10,13)
+      Random(calle, 10,13)
+      BloquearEsquina(avenida,calle)
+      Pos(avenida,calle)
+      juntarFlor(flor)
+      Pos(av,ca)
+      LiberarEsquina(avenida,calle)
+      si(flor = 1)
+        EnviarMensaje(F,R2)
+        EnviarMensaje(F,R1)
+        EnviarMensaje(ID,R4)
+        aux:= F
+        RecibirMensaje(aux1,R2)
+        RecibirMensaje(aux1,R1)
+      sino
+        EnviarMensaje(V,R2)
+        EnviarMensaje(V, R1)
+        RecibirMensaje(aux1,R2)
+        si (aux1 = F)
+          aux:= aux1
+        RecibirMensaje(aux1,R1)
+        si (aux1 = F)
+          aux:= aux1
+  fin
+  robot escondedor
+  variables
+    ca,av,calle,avenida,ganador: numero
+  comenzar
+    av:= PosAv
+    ca:= PosCa
+    Random(calle, 10, 13)
+    Random(avenida, 10, 13)
+    Pos(avenida,calle)
+    depositarFlor
+    Pos(av,ca)
+    EnviarMensaje(1,R1)
+    EnviarMensaje(2,R2)
+    EnviarMensaje(3,R3)
+    RecibirMensaje(ganador,*)
+    Informar(ganador)
+  fin
+variables
+  R1: buscador
+  R2: buscador2
+  R3: buscador3
+  R4: escondedor
+comenzar
+  AsignarArea(R1, ciudad)
+  AsignarArea(R1, areaR1)
+  AsignarArea(R2, ciudad)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R3, ciudad)
+  AsignarArea(R3, areaR3)
+  AsignarArea(R4, ciudad)
+  AsignarArea(R4, areaR4)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 2,2)
+  Iniciar(R3, 3,3)
+  Iniciar(R4, 4,4)
+fin
