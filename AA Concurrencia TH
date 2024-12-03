@@ -1,0 +1,131 @@
+"Tres robots recolectores deben realizar 3 cuadrados cada uno, como se ejemplifica en la figura, juntando todas las flores que encuentran a su paso. Inicialmente,
+ un robot coordinador deberá informar a cada recolector el tamaño de los cuadrados a realizar (calculado aleatoriamente entre 1 y 6). Al completar cada cuadrado, 
+los recolectores deberán depositar de a una en la esquina (50,50) las flores encontradas y luego avisar al coordinador para que recoja las flores recién depositadas. 
+Una vez que todos los recolectores completaron sus tareas, el coordinador deberá informar cuál fue el que recolectó más flores. 
+Los recolectores inician en las esquinas (1,1) y (10,1), (20,1) y el coordinador en la esquina (100,100)."
+
+
+programa examenTurnoHT1
+procesos
+  proceso recorrerAvenida(E numAv: numero)
+  comenzar
+    Pos(numAv, 1)
+    repetir 99
+      mover
+  fin
+  proceso juntarFlores (ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso cuadrado (E cant: numero ES flor: numero)
+  comenzar
+    repetir 4
+      repetir cant
+        mover
+        juntarFlores(flor)
+      derecha
+  fin
+  proceso depositarTodo (E flor: numero E av: numero E ca: numero)
+  comenzar
+    repetir flor
+      BloquearEsquina(50,50)
+      Pos(50,50)
+      depositarFlor
+      Pos(av,ca)
+      LiberarEsquina(50,50)
+  fin
+  proceso juntarDejado (E cant: numero E av: numero E ca: numero)
+  comenzar
+    repetir cant
+      BloquearEsquina(50,50)
+      Pos(50,50)
+      tomarFlor
+      Pos(av,ca)
+      LiberarEsquina(50,50)
+  fin
+areas
+  ciudad: AreaC (50,50,50,50)
+  areaR1: AreaP (1,1,9,100)
+  areaR2: AreaP (10,1,19,100)
+  areaR3: AreaP (20,1,29,100)
+  areaRJ: AreaP (100,100,100,100)
+robots
+  robot robot1
+  variables
+    cant,flor,ID,av,ca: numero
+  comenzar
+    RecibirMensaje(ID, RJ)
+    RecibirMensaje(cant, RJ)
+    repetir 3
+      flor:= 0
+      cuadrado(cant,flor)
+      av:= PosAv
+      ca:= PosCa
+      depositarTodo(flor,av,ca)
+      EnviarMensaje(ID, RJ)
+      EnviarMensaje(flor,RJ)
+      ca:= ca + cant + 1 
+      Pos(av,ca)
+  fin
+  robot robotJefe
+  variables
+    cant,ID,max,maxID,uno,dos,tres,av,ca,flor: numero
+  comenzar
+    uno:= 0
+    dos:= 0
+    tres:= 0
+    av:= PosAv
+    ca:= PosCa
+    EnviarMensaje(1,R1)
+    Random(cant,1,6)
+    EnviarMensaje(cant,R1)
+    EnviarMensaje(2,R2)
+    Random(cant,1,6)
+    EnviarMensaje(cant,R2)
+    EnviarMensaje(3,R3)
+    Random(cant,1,6)
+    EnviarMensaje(cant,R3)
+    repetir 9
+      RecibirMensaje(ID,*)
+      si (ID = 1)
+        RecibirMensaje(flor,R1)
+        uno:= uno + flor
+      sino
+        si (ID = 2)
+          RecibirMensaje(flor,R2)
+          dos:= dos + flor
+        sino
+          RecibirMensaje(flor,R3)
+          tres:= tres + flor
+      juntarDejado(flor,av,ca)
+    max:= uno
+    maxID:= 1
+    si (dos> max)
+      max:= dos
+      maxID:= 2
+    si (tres > max)
+      max:= tres
+      maxID:= 3
+    Informar(maxID)
+  fin
+variables
+  R1: robot1
+  R2: robot1
+  R3: robot1
+  RJ: robotJefe
+comenzar
+  AsignarArea(R1, ciudad)
+  AsignarArea(R1, areaR1)
+  AsignarArea(R2, ciudad)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R3, ciudad)
+  AsignarArea(R3, areaR3)
+  AsignarArea(RJ, ciudad)
+  AsignarArea(RJ, areaRJ)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 10,1)
+  Iniciar(R3, 20,1)
+  Iniciar(RJ, 100,100)
+fin
