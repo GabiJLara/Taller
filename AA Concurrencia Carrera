@@ -1,0 +1,158 @@
+"
+Dos robots deben jugar una carrera. El recorrido se muestra en la figura de más abajo. Ambos robots pasan por la esquina (6,6). 
+La carrera es de ida y vuelta. En el recorrido de ida ambos robots deben juntar todas las flores, permitiendo que ambos tomen flores de la esquina que comparten en común. 
+A la vuelta deben tomar todos los papeles, permitiendo también que ambos tomen papeles de la esquina que comparten en común.
+Un robot fiscalizador deberá informar quién es el robot que juntó más flores (cuando ambos robots finalizan con el recorrido de ida) 
+y quién es el robot que juntó más papeles (cuando ambos robots finalizan con el recorrido de vuelta). Los corredores NO deben esperarse entre ellos para comenzar la vuelta,
+ ni bien un corredor termina su recorrido de ida, comienza inmediatamente con la vuelta, independientemente de donde se encuentre el otro corredor.
+Un corredor comienza en (1,5) y su recorrido es el de las líneas punteadas. El otro corredor comienza en (1,7) y su recorrido es el de las líneas continúas. El fiscalizador se encuentra en (1,6)."
+
+
+programa examenRecursantesT2
+procesos
+  proceso recorrerAvenida(E numAv: numero)
+  comenzar
+    Pos(numAv, 1)
+    repetir 99
+      mover
+  fin
+  proceso juntarPapeles(ES papel: numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papel:= papel + 1
+  fin
+  proceso juntarFlores (ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso girar (E cant: numero)
+  comenzar
+    repetir cant
+      derecha
+  fin
+areas
+  ciudad: AreaC (6,6,6,6)
+  areaR1: AreaP (1,7,5,7)
+  areaR11: AreaP (7,5,11,5)
+  areaR2: AreaP (1,5,5,5)
+  areaR22: AreaP (7,7,11,7)
+  areaRJ: AreaP(1,6,1,6)
+  
+robots
+  robot robot1
+  variables
+    flor,papel,ID: numero
+  comenzar
+    RecibirMensaje(ID,RJ)
+    derecha
+    repetir 4
+      juntarFlores(flor)
+      mover
+    juntarFlores(flor)
+    BloquearEsquina(6,6)
+    Pos(6,6)
+    juntarFlores(flor)
+    Pos(7,5)
+    LiberarEsquina(6,6)
+    repetir 4
+      juntarFlores(flor)
+      mover
+    juntarFlores(flor)
+    EnviarMensaje(ID,RJ)
+    EnviarMensaje(flor,RJ)
+    girar(2)
+    repetir 4
+      juntarPapeles(papel)
+      mover
+    juntarPapeles(papel)
+    BloquearEsquina(6,6)
+    Pos(6,6)
+    juntarPapeles(papel)
+    Pos(5,7)
+    LiberarEsquina(6,6)
+    repetir 4
+      juntarPapeles(papel)
+      mover
+    juntarPapeles(papel)
+    EnviarMensaje(ID,RJ)
+    EnviarMensaje(papel,RJ)
+  fin
+  robot robot2
+  variables
+    flor,papel,ID: numero
+  comenzar
+    RecibirMensaje(ID, RJ)
+    derecha
+    repetir 4
+      juntarFlores(flor)
+      mover
+    juntarFlores(flor)
+    BloquearEsquina(6,6)
+    Pos(6,6)
+    juntarFlores(flor)
+    Pos(7,7)
+    LiberarEsquina(6,6)
+    repetir 4
+      juntarFlores(flor)
+      mover
+    juntarFlores(flor)
+    EnviarMensaje(ID,RJ)
+    EnviarMensaje(flor,RJ)
+    girar(2)
+    repetir 4
+      juntarPapeles(papel)
+      mover
+    juntarPapeles(papel)
+    BloquearEsquina(6,6)
+    Pos(6,6)
+    juntarPapeles(papel)
+    Pos(5,5)
+    LiberarEsquina(6,6)
+    repetir 4
+      juntarPapeles(papel)
+      mover
+    juntarPapeles(papel)
+    EnviarMensaje(ID,RJ)
+    EnviarMensaje(papel,RJ)
+  fin
+  robot fiscalizador
+  variables
+    ID,maxID,max,aux: numero
+  comenzar
+    EnviarMensaje(1, R1)
+    EnviarMensaje(2, R2)
+    repetir 2
+      max:= -1
+      repetir 2
+        RecibirMensaje(ID,*)
+        si (ID = 1)
+          RecibirMensaje(aux,R1)
+          si (aux > max)
+            max:= aux
+            maxID:= ID
+        sino
+          RecibirMensaje(aux,R2)
+          si (aux > max)
+            max:= aux
+            maxID:= ID
+      Informar(maxID)
+  fin
+variables
+  R1: robot1
+  R2: robot2
+  RJ: fiscalizador
+comenzar
+  AsignarArea(R1, ciudad)
+  AsignarArea(R1, areaR1)
+  AsignarArea(R1, areaR11)
+  AsignarArea(R2, ciudad)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R2, areaR22)
+  AsignarArea(RJ, areaRJ)
+  Iniciar(R1, 1,7)
+  Iniciar(R2, 1,5)
+  Iniciar(RJ, 1,6)
+fin
