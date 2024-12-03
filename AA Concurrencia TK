@@ -1,0 +1,115 @@
+"Tres robots deben realizar 3 cuadrados como se ejemplifica en la figura, juntando todas las flores que encuentran a su paso. Para resolver el problema se debe seguir un modelo de Cliente/Servidor.
+Cada uno de los 3 robots (Cliente) debe solicitar a un robot Servidor un tamaño de cuadrado y luego realizar el cuadrado de dicho tamaño. El Servidor determina aleatoriamente el tamaño entre 1 y 5. 
+Cada robot, una vez completados los 3 cuadrados, debe depositar de a una todas las flores juntadas en la esquina (50,50). 
+Cuando los 3 robots hayan depositado sus flores en (50,50), el robot Servidor deberá ir a (50,50) y juntar todas las flores que haya en dicha esquina e informar la cantidad juntada.
+Los robots Clientes inician en las esquinas (1,1) y (8,1) y (15,1).
+El robot Servidor inicia en (22,1)."
+
+
+programa examenTurnoK
+procesos
+  proceso juntarFlores(ES flor: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flor:= flor + 1
+  fin
+  proceso cuadrado (E cant: numero ES flor: numero)
+  comenzar
+    repetir 4
+      repetir cant
+        mover
+        juntarFlores(flor)
+      derecha
+  fin
+  proceso depositarTodo(E cant: numero E av: numero E ca: numero)
+  comenzar
+    repetir cant
+      BloquearEsquina(50,50)
+      Pos(50,50)
+      depositarFlor
+      Pos(av,ca)
+      LiberarEsquina(50,50)
+  fin
+areas
+  ciudad: AreaC (50,50,50,50)
+  areaR1: AreaP (1,1,7,20)
+  areaR2: AreaP (8,1,14,20)
+  areaR3: AreaP (15,1,21,20)
+  areaRJ: AreaP (22,1,22,1)
+robots
+  robot cliente
+  variables
+    cant,ID,flor,av,ca: numero
+  comenzar
+    flor:= 0
+    RecibirMensaje(ID, RJ)
+    av:= PosAv
+    ca:= PosCa
+    repetir 3
+      EnviarMensaje(ID, RJ)
+      EnviarMensaje(V, RJ)
+      RecibirMensaje(cant,RJ)
+      cuadrado(cant,flor)
+      ca:= ca + cant + 1
+      Pos(av,ca)
+    depositarTodo(flor,av,ca)
+    EnviarMensaje(ID, RJ)
+    EnviarMensaje(F, RJ)
+  fin
+  robot servidor
+  variables
+    aux,ID,cant,flor: numero bool: boolean
+  comenzar
+    aux:= 0
+    flor:= 0
+    EnviarMensaje(1,R1)
+    EnviarMensaje(2,R2)
+    EnviarMensaje(3,R3)
+    mientras ~(aux = 3)
+      RecibirMensaje(ID, *)
+      si (ID = 1)
+        RecibirMensaje(bool,R1)
+        si (bool = V)
+          Random(cant,1,5)
+          EnviarMensaje(cant,R1)
+        sino
+          aux:= aux + 1
+      sino
+        si (ID = 2)
+          RecibirMensaje(bool,R2)
+          si (bool = V)
+            Random(cant,1,5)
+            EnviarMensaje(cant,R2)
+          sino
+            aux:= aux + 1
+        sino
+          RecibirMensaje(bool,R3)
+          si (bool = V)
+            Random(cant,1,5)
+            EnviarMensaje(cant,R3)
+          sino
+            aux:= aux + 1
+    Pos(50,50)
+    juntarFlores(flor)
+    Informar(flor)
+  fin
+variables
+  R1: cliente
+  R2: cliente
+  R3: cliente
+  RJ: servidor
+comenzar
+  AsignarArea(R1, ciudad)
+  AsignarArea(R1, areaR1)
+  AsignarArea(R2, ciudad)
+  AsignarArea(R2, areaR2)
+  AsignarArea(R3, ciudad)
+  AsignarArea(R3, areaR3)
+  AsignarArea(RJ, ciudad)
+  AsignarArea(RJ, areaRJ)
+  Iniciar(R1, 1,1)
+  Iniciar(R2, 8,1)
+  Iniciar(R3, 15,1)
+  Iniciar(RJ, 22,1)
+fin
