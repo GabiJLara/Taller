@@ -1,0 +1,46 @@
+
+package evaluacionturnoj;
+
+public class SitioWeb {
+    private String nombre;
+    private String direccionWeb;
+    private int cantUsuarios;
+
+    public SitioWeb(String unNombre, String unaDireccionWeb) {
+        this.setNombre(unNombre);
+        this.setDireccionWeb(unaDireccionWeb);
+        this.setCantUsuarios(0);
+    }
+
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDireccionWeb() {
+        return direccionWeb;
+    }
+
+    public void setDireccionWeb(String direccionWeb) {
+        this.direccionWeb = direccionWeb;
+    }
+
+    public int getCantUsuarios() {
+        return cantUsuarios;
+    }
+
+    public void setCantUsuarios(int cantUsuarios) {
+        this.cantUsuarios = cantUsuarios;
+    }
+    
+    @Override
+    public String toString(){
+        String aux="Nombre: " +this.getNombre()+" Direccion Web: " + this.getDireccionWeb() + " Cantidad De Usuarios: " + this.getCantUsuarios();
+        return (aux);
+    }
+    
+}
