@@ -1,0 +1,51 @@
+
+package evaluacion2022;
+
+
+public class Presencial extends Curso{
+    private int aula;
+    private boolean coffeBreak;
+    
+    public Presencial (String unNombre, double unCosto, int unaCantidad, int unAula, boolean unCoffeBreak){
+        super(unNombre,unCosto,unaCantidad);
+        this.setAula(unAula);
+        this.setCoffeBreak(unCoffeBreak);
+    }
+
+    public int getAula() {
+        return aula;
+    }
+
+    public void setAula(int aula) {
+        this.aula = aula;
+    }
+
+    public boolean getCoffeBreak() {
+        return coffeBreak;
+    }
+
+    public void setCoffeBreak(boolean coffeBreak) {
+        this.coffeBreak = coffeBreak;
+    }
+    
+    public void agregarAlCurso(Leccion unaLeccion) {
+        super.agregarLeccion(unaLeccion);
+    }
+    
+    public double costoInscripcion(){
+        double total;
+        if(this.getCoffeBreak()){
+            total= this.costoTotal()*0.95;
+        }
+        else
+            total= this.costoTotal();
+        
+        return(total);
+    }
+    
+    @Override
+    public String toString(){
+        String aux= super.toString()+"Costo Final de Inscripcion: $" + this.costoInscripcion()+"\n";
+        return(aux);
+    }
+}
