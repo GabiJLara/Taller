@@ -1,0 +1,44 @@
+
+package evaluacion2022;
+
+
+public class Online extends Curso {
+    private String plataforma;
+    
+    public Online (String unNombre, double unCosto, int unaCantidad, String unaPlataforma){
+        super(unNombre,unCosto,unaCantidad);
+        this.setPlataforma(unaPlataforma);
+    }
+
+    public String getPlataforma() {
+        return plataforma;
+    }
+
+    public void setPlataforma(String plataforma) {
+        this.plataforma = plataforma;
+    }
+
+    public void agregarAlCurso(Leccion unaLeccion) {
+        if(unaLeccion.getDuracion()<45){
+            super.agregarLeccion(unaLeccion);
+        }
+    }
+    
+    public double costoInscripcion(){
+        double total;
+        if(this.getPlataforma().equals("Zoom")){
+            total= this.costoTotal()*0.90;
+        }
+        else
+            total= this.costoTotal();
+        
+        return(total);
+    }
+    
+    @Override
+    public String toString(){
+        String aux= super.toString()+"Costo Final de Inscripcion: $" + this.costoInscripcion()+"\n";
+        return(aux);
+    }
+    
+}
