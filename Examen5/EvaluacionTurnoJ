@@ -1,0 +1,28 @@
+
+package evaluacionturnoj;
+
+
+public class EvaluacionTurnoJ {
+
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Amateur a1= new Amateur("Papers","www.papers.com");
+        Profesional p1=new Profesional("Papeles","www.papeles.com",10);
+        
+        System.out.print((a1.toString()));
+        System.out.print(p1.toString());
+        
+        a1.registrarTorneoAmateur(200);
+        System.out.print(a1.toString());
+        for(int i=0;i<4;i++){
+            String nombre= "nombre"+i;
+            String fecha= "fecha"+i;
+            TorneoProfesional t= new TorneoProfesional(nombre,fecha,700.5,200);
+            p1.agregarTorneo(t);
+            
+        }
+        System.out.print(p1.toString());
+    }
+    
+}
