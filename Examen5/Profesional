@@ -1,0 +1,66 @@
+
+package evaluacionturnoj;
+
+public class Profesional extends SitioWeb{
+    private TorneoProfesional[]vector;
+    private int cantidad;
+    private int actual;
+
+    public Profesional(String unNombre, String unaDireccionWeb, int unaCantidad) {
+        super(unNombre, unaDireccionWeb);
+        this.setVector(new TorneoProfesional[unaCantidad]);
+        this.setCantidad(unaCantidad);
+        this.setActual(0);
+    }
+    
+    public int getActual() {    
+        return actual;
+    }
+
+    public void setActual(int actual) {
+        this.actual = actual;
+    }
+    
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    private void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    
+    public TorneoProfesional[] getVector() {
+        return vector;
+    }
+
+    private void setVector(TorneoProfesional[] vector) {
+        this.vector = vector;
+    }
+    
+    public boolean agregarTorneo(TorneoProfesional unTorneo){
+        boolean aux;
+        if(this.getActual()<this.getCantidad()){
+            this.vector[this.getActual()]=unTorneo;
+            this.actual++;
+            aux= true;
+        }
+        else
+            aux=false;
+        return(aux);
+    }
+    
+    public double cotizarSitio(){
+        double total=1000*this.getActual();
+        for(int i=0;i<this.getActual();i++){
+            total+=this.vector[i].cotizarTorneo();
+        }
+        return(total);
+    }
+    
+    public String toString(){
+        String aux=super.toString();
+        aux+= ", Cotizacion: "+this.cotizarSitio()+"\n";
+        return(aux);
+    }
+}
