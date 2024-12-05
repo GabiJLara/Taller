@@ -1,0 +1,31 @@
+
+package evaluacion2022;
+
+public class Evaluacion2022 {
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+        
+        Online o1=new Online("Papers",22.5,10,"Zoom");
+        Presencial p1= new Presencial("Papeles",18.5,10,8,true);
+        
+        for(int i =0; i<4;i++){
+            String tema= "tema "+i;
+            String fecha= "fecha " + i;
+            Leccion lec= new Leccion(tema,fecha,40);
+            o1.agregarAlCurso(lec);
+            System.out.print(lec.toString());
+        }
+        for(int i = 0;i<4;i++){
+            String tema= "tema"+i;
+            String fecha= "fecha" + i;
+            Leccion lec= new Leccion(tema,fecha,40);
+            p1.agregarAlCurso(lec);
+        }
+        
+        
+        System.out.print(o1.toString());
+        System.out.print(p1.toString());
+    }
+    
+}
