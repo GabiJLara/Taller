@@ -1,0 +1,55 @@
+
+package evaluacionturnoj;
+
+
+public class TorneoProfesional {
+    private String nombre;
+    private String fecha;
+    private double montoRecaudado;
+    private double montoPagado;
+
+    public TorneoProfesional(String unNombre, String unaFecha, double unMontoRecaudado, double unMontoPagado) {
+        this.setNombre(unNombre);
+        this.setFecha(unaFecha);
+        this.setMontoRecaudado(unMontoRecaudado);
+        this.setMontoPagado(unMontoPagado);
+    }
+
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    private void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    private void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public double getMontoRecaudado() {
+        return montoRecaudado;
+    }
+
+    private void setMontoRecaudado(double montoRecaudado) {
+        this.montoRecaudado = montoRecaudado;
+    }
+
+    public double getMontoPagado() {
+        return montoPagado;
+    }
+
+    private void setMontoPagado(double montoPagado) {
+        this.montoPagado = montoPagado;
+    }
+    
+    public double cotizarTorneo(){
+        double total=this.getMontoRecaudado()-this.getMontoPagado();
+        return(total);
+    }
+}
