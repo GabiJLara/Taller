@@ -1,0 +1,134 @@
+package evaluacionturnoh;
+
+public class Supermercado {
+    private String nombre;
+    private String direccion;
+    private Producto[][]matriz; //Gondolas x Estantes
+    private int cantGondolas;
+    private int cantEstantes;
+    private int actualG;
+    private int actualE;
+    private int[] vector;
+    
+    
+    public Supermercado(String unNombre, String unaDireccion, int unaCantGondolas, int unaCantEstantes) {
+        this.setDireccion(unaDireccion);
+        this.matriz= new Producto[unaCantGondolas][unaCantEstantes]; //Se inicializa en null automaticamente por JAVA
+        this.setNombre(unNombre);
+        this.setCantEstantes(unaCantEstantes);
+        this.setCantGondolas(unaCantGondolas);
+        this.setActualE(0);
+        this.setActualG(0);
+        this.vector= new int[unaCantGondolas];
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    private void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    private void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Producto[][] getMatriz() {
+        return matriz;
+    }
+
+    private void setMatriz(Producto[][] matriz) {
+        this.matriz = matriz;
+    }
+
+    public int getCantGondolas() {
+        return cantGondolas;
+    }
+
+    private void setCantGondolas(int cantGondolas) {
+        this.cantGondolas = cantGondolas;
+    }
+
+    public int getCantEstantes() {
+        return cantEstantes;
+    }
+
+    private void setCantEstantes(int cantEstantes) {
+        this.cantEstantes = cantEstantes;
+    }
+
+    public int getActualG() {
+        return actualG;
+    }
+
+    private void setActualG(int actualG) {
+        this.actualG = actualG;
+    }
+
+    public int getActualE() {
+        return actualE;
+    }
+
+    private void setActualE(int actualE) {
+        this.actualE = actualE;
+    }
+    
+    public void agregarProducto(Producto unProducto){
+        if(this.getActualE()<this.getCantEstantes()){
+            matriz[actualG][actualE]= unProducto;
+            vector[actualG]+=unProducto.getCantUnidades();
+            this.actualE++;
+        }
+        else{
+            this.setActualG(actualG+1);
+            this.setActualE(0);
+            if (this.getActualG()<this.getCantGondolas()){
+                matriz[actualG][actualE]= unProducto;
+                vector[actualG]+=unProducto.getCantUnidades();
+                this.actualE++;
+            }else 
+                System.out.println("---NO hay mas lugar-----");
+        }    
+    }
+    
+    public String listarProducto(String unaMarca, int X){
+        String aux= "----Productos que cumplen condicion---- " + "\n";
+        int a=X-1;
+        for (int i=0;i<this.getCantEstantes();i++){
+            if( matriz[a][i].getMarca().equals(unaMarca))
+                aux+= "prducto: "+ matriz[a][i].toString();
+        }
+        return(aux);
+    }
+    
+    public int maxGondola(){
+        int max= -1;
+        int gondolaMax=0;
+        for (int i=0;i<this.getCantGondolas();i++){
+            if(vector[i]>max){
+                max= vector[i];
+                gondolaMax=i;
+            }
+        }
+        return(gondolaMax+1);
+    }
+
+    @Override
+    public String toString() {
+        String aux="Supermercado: "+this.getNombre()+", Direccion: "+ this.getDireccion()+"\n";
+        for(int i=0;i<this.getCantGondolas();i++){
+            aux+="Gondola "+(i+1)+"\n";
+            for(int j=0;j<this.getCantEstantes();j++){
+                aux+="Estante "+(j+1)+": "+this.matriz[i][j].toString();
+            }
+        }
+        return(aux);
+    }
+    
+    
+}
