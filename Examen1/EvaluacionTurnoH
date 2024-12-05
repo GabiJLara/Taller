@@ -1,0 +1,24 @@
+
+package evaluacionturnoh;
+
+public class EvaluacionTurnoH {
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Supermercado s1=new Supermercado("Bimbo","Calle 7 Nº 888",15,10); //Instanciamos supermercado
+        
+        for(int i=0;i<150;i++){  //llenamos de productos el supermercado
+            String nombre="nombre"+i;
+            String marca= "marca"+i;
+            Producto p1=new Producto(i,nombre,marca,i,i);
+            s1.agregarProducto(p1);
+        }
+        System.out.print(s1.toString());
+        System.out.print("Gondola con mayor cantidad de productos exhibidos: "+s1.maxGondola()+"\n");
+        String prueba= "marca"+ 1;
+        System.out.print(s1.listarProducto(prueba,1));
+        
+        
+    }
+    
+}
