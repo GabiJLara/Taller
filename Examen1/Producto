@@ -1,0 +1,66 @@
+
+package evaluacionturnoh;
+
+
+public class Producto {
+    private int codigo;
+    private String nombre;
+    private String marca;
+    private int cantUnidades;
+    private double precio;
+
+    public Producto(int unCodigo, String unNombre, String unaMarca, int unaCantUnidades, double unPrecio) {
+        this.setNombre(unNombre);
+        this.setCodigo(unCodigo);
+        this.setMarca(unaMarca);
+        this.setCantUnidades(unaCantUnidades);
+        this.setPrecio(unPrecio);
+    }
+    
+    public int getCodigo() {
+        return codigo;
+    }
+
+    private void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    private void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    private void setMarca(String Marca) {
+        this.marca = Marca;
+    }
+
+    public int getCantUnidades() {
+        return cantUnidades;
+    }
+
+    private void setCantUnidades(int cantUnidades) {
+        this.cantUnidades = cantUnidades;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    private void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Producto: {" + "codigo=" + this.getCodigo() + ", nombre=" + this.getNombre() + ", Marca=" + this.getMarca() + ", cantUnidades=" + this.getCantUnidades() + ", precio=" + this.getPrecio()+"}"+"\n";
+    }
+    
+    
+}
