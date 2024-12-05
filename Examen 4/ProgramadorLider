@@ -1,0 +1,41 @@
+
+package evaluacionturnok;
+
+
+public class ProgramadorLider extends Programador{
+    private int antiguedad;
+    private int cantProyectos;
+
+    public ProgramadorLider(String unNombre, int unDNI, double unSueldo, double unPromLineas, String unLenguajePref, int unaAntiguedad, int unaCantProyectos){
+        super(unNombre,unDNI,unSueldo,unPromLineas,unLenguajePref);
+        this.setAntiguedad(unaAntiguedad);
+        this.setCantProyectos(unaCantProyectos);
+    }
+    
+    public int getAntiguedad() {
+        return antiguedad;
+    }
+
+    private void setAntiguedad(int antiguedad) {
+        this.antiguedad = antiguedad;
+    }
+
+    public int getCantProyectos() {
+        return cantProyectos;
+    }
+
+    private void setCantProyectos(int cantProyectos) {
+        this.cantProyectos = cantProyectos;
+    }
+    
+    
+    public double sueldoFinal(){
+       double total= super.sueldoFinal() + this.getAntiguedad()*10000+this.getCantProyectos()*20000;
+       return(total);
+    }
+    
+    public String toString(){
+        String aux= super.toString();
+        return(aux);
+    }
+}
