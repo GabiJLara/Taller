@@ -1,0 +1,91 @@
+
+package evaluacionturnok;
+
+
+public class Empresa {
+    private String nombre;
+    private ProgramadorLider jefe;
+    private Programador[]vector;
+    private int actual;
+    private int cantidad;
+
+    public Empresa(String unNombre, ProgramadorLider unProgramadorLider, int unaCantidad){
+        this.setNombre(unNombre);
+        this.setJefe(unProgramadorLider);
+        this.setVector(new Programador[unaCantidad]);
+        this.setActual(0);
+        this.setCantidad(unaCantidad);
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    private void setCantidad(int cantiad) {
+        this.cantidad = cantiad;
+    }
+    
+    public int getActual() {
+        return actual;
+    }
+
+    private void setActual(int actual) {
+        this.actual = actual;
+    }
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    private void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public ProgramadorLider getJefe() {
+        return jefe;
+    }
+
+    private void setJefe(ProgramadorLider jefe) {
+        this.jefe = jefe;
+    }
+
+    public Programador[] getVector() {
+        return vector;
+    }
+
+    private void setVector(Programador[] vector) {
+        this.vector = vector;
+    }
+    
+    public void agregarProgramador(Programador unProgramador){
+        if(this.getActual()<this.getCantidad()){
+            this.vector[this.getActual()]=unProgramador;
+            this.actual++;
+        }
+    }
+    
+    public double calcularTotalSueldos(){
+        double total=this.getJefe().sueldoFinal();
+        for(int i=0;i<this.getActual();i++){
+            total+=this.vector[i].sueldoFinal();
+        }
+        return(total);
+    }
+    
+    public void aumentarSueldos(double M){
+        this.getJefe().setSueldo(this.getJefe().getSueldo()+M);
+        for(int i=0;i<this.getActual();i++){
+            this.vector[i].setSueldo(this.vector[i].getSueldo()+M);
+        }
+    }
+    
+    public String toString(){
+        String aux= "Empresa: "+this.getNombre()+"\n";
+        aux+= "Programador Lider: "+this.getJefe().toString();
+        for(int i=0;i<this.getActual();i++){
+            aux+="Programador"+(i+1)+": "+this.vector[i].toString();
+        }
+        return(aux);
+    }
+    
+}
