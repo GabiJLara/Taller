@@ -1,0 +1,26 @@
+
+package evaluacionturnok;
+
+
+public class EvaluacionTurnoK {
+
+    public static void main(String[] args) {
+            // TODO code application logic here
+            ProgramadorLider pL1= new ProgramadorLider("Lider",8888,10500.5,300,"JAVA",12,8);
+            Empresa e1= new Empresa("Arcor",pL1,8);
+
+            for(int i=0;i<4;i++){
+                String nombre= "nombre: "+i;
+                String programa= "Pref: " + i;
+                Programador p= new Programador(nombre,i,i,i,programa);
+                 e1.agregarProgramador(p);
+             }
+        
+            System.out.print(e1.toString());
+        
+            e1.aumentarSueldos(256.8);
+            System.out.print(e1.toString());
+        
+    }
+
+}
