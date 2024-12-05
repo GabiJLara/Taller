@@ -1,0 +1,48 @@
+
+package evaluacion2022;
+
+public class Leccion {
+    private String tema;
+    private String fecha;
+    private int duracion;
+
+    public Leccion(String unTema, String unaFecha, int unaDuracion){
+        this.setTema(unTema);
+        this.setFecha(unaFecha);
+        this.setDuracion(unaDuracion);
+        
+    }
+    
+    public String getTema() {
+        return tema;
+    }
+
+    private void setTema(String tema) {
+        this.tema = tema;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    private void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    private void setDuracion(int duracion) {
+        this.duracion = duracion;
+    }
+
+    @Override
+    public String toString() {
+        String aux;
+        aux= "Tema: " + this.getTema() + ", fecha: " + this.getFecha() + ", duracion: " + this.getDuracion() + '\n';
+        return(aux);
+    }
+    
+    
+}
