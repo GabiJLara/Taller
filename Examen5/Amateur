@@ -1,0 +1,48 @@
+
+package evaluacionturnoj;
+
+
+public class Amateur extends SitioWeb {
+    private int cantTorneos;
+    private int cantClicks;
+
+    public Amateur(String unNombre, String unaDireccionWeb) {
+        super(unNombre,unaDireccionWeb);
+        this.setCantTorneos(0);
+        this.setCantClicks(0);
+    }
+
+    
+    public int getCantTorneos() {
+        return cantTorneos;
+    }
+
+    public void setCantTorneos(int cantTorneos) {
+        this.cantTorneos = cantTorneos;
+    }
+
+    public int getCantClicks() {
+        return cantClicks;
+    }
+
+    public void setCantClicks(int cantClicks) {
+        this.cantClicks = cantClicks;
+    }
+    
+    public void registrarTorneoAmateur(int unaCantClicks){
+        this.setCantTorneos(this.getCantTorneos() + 1);
+        this.setCantClicks(this.getCantClicks() + unaCantClicks);
+        
+    }
+    
+    public double cotizarSitio(){
+        double aux=10*this.getCantClicks() + 50 * this.getCantUsuarios();
+        return(aux);
+    }
+    
+    public String toString(){
+        String aux= super.toString();
+        aux+= ", Cotizacion: $" + this.cotizarSitio() + "\n";
+        return(aux);
+    }
+}
