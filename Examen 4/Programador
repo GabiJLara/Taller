@@ -1,0 +1,73 @@
+
+package evaluacionturnok;
+
+public class Programador {
+    private String nombre;
+    private int DNI;
+    private double sueldo;
+    private double promLineas;
+    private String lenguajePref;
+
+    public Programador(String unNombre, int unDNI, double unSueldo, double unPromLineas, String unLenguajePref) {
+        this.setNombre(unNombre);
+        this.setDNI(unDNI);
+        this.setSueldo(unSueldo);
+        this.setPromLineas(unPromLineas);
+        this.setLenguajePref(unLenguajePref);
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(int DNI) {
+        this.DNI = DNI;
+    }
+
+    public double getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(double sueldo) {
+        this.sueldo = sueldo;
+    }
+
+    public double getPromLineas() {
+        return promLineas;
+    }
+
+    public void setPromLineas(double promLineas) {
+        this.promLineas = promLineas;
+    }
+
+    public String getLenguajePref() {
+        return lenguajePref;
+    }
+
+    public void setLenguajePref(String lenguajePref) {
+        this.lenguajePref = lenguajePref;
+    }
+    
+    public double sueldoFinal(){
+        double total= this.getSueldo();
+        if (this.getPromLineas()>200){
+            total+=50000;
+        }
+        return(total);
+    }
+    
+    @Override
+    public String toString(){
+        String aux= this.getNombre()+" ,"+this.getDNI()+" ,"+this.getLenguajePref()+" ,$"+ this.sueldoFinal()+"\n";
+        
+        return(aux);
+    }
+}
